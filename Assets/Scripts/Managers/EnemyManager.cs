@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Last edited - Norman Zhu 3:32PM 2/21/24 
 
 // Handles enemy spawning, and group enemy behavior.
 // 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject[] enemyList; // Make this an object pool(?)
+    public GameObject[] spawnerList; // Each spawner handles its own local list of enemies.
+                                     // And unique list of NavMesh destinations.
+                                     
 
     private static EnemyManager _instance;
 
