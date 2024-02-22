@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class EnemyBasic : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public List<GameObject> waypointList;      // Contains an ordered list of waypoints for enemies to travel through.
+                                            // Inherited from parent enemySpawner when 'spawned'.
+                                            // Remove vector3s from list as traversed.
     void Start()
     {
         
