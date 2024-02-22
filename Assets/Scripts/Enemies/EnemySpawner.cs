@@ -5,21 +5,18 @@ using UnityEngine;
 // Last edited - Norman Zhu 3:32PM 2/21/24 - InstantiatePrefabs() GetObjectFromPool() spawnEnemy()
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;          // Just use this for one enemy type for nwo.
-    // public GameObject specialEnemyPrefab;
-
+    public GameObject enemyPrefab;          // More prefabs for more enemy types.
+    public List<GameObject> localEnemyPool; // List of the enemies spawned by self.
+    public float spawnTimer = 0.0f;         // Actual timer, gets incremented by time.deltaTime in update()
+    public float spawnInterval = 1.0f;      // Spawn interval in seconds.
     public int maxEnemies = 5;              // Max number of enemies to be spawned by this spawner at one time.
                                             // Also used during instantiation of object pool.
                                             // Default = 5.
 
-    public List<GameObject> localEnemyPool; // List of the enemies spawned by self.
-
-
-    public GameObject waypointPrefab;       // Use an empty gameObject prefab.
-
-    public List<GameObject> waypointList;      // Contains a list of waypoints for enemies to travel through.
-                                            // Inherited by enemies spawned. 
-                                            // Use empty gameObject prefabs with colliders.
+    public GameObject waypointPrefab;       
+    public List<GameObject> waypointList;   // Contains a list of waypoints for enemies to travel through.
+                                            //      Inherited by enemies spawned. 
+                                            //      Use empty gameObject prefabs with colliders.
 
 
     // Instantiates object pool with provided enemyPrefab.
@@ -32,8 +29,17 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject newPrefab = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
             newPrefab.SetActive(false); // Set the instantiated prefab inactive
+            newPrefab.transform.SetParent(this.transform);
             localEnemyPool.Add(newPrefab);
         }
+    }
+
+    // Use this function to initialize the waypoint list with ordered waypoints.
+    // First waypoint will be the first traversed by enemies.
+    public void addWaypoint(Vector3 destination)
+    {
+        Instantiate(waypointPrefab, destination, Quaternion.identity);
+        waypointList.Add(waypointPrefab);
     }
 
     public GameObject GetObjectFromPool()
@@ -59,6 +65,8 @@ public class EnemySpawner : MonoBehaviour
         {
             enemyToSpawn.SetActive(true);
             enemyToSpawn.transform.position = this.transform.position;
+            enemyToSpawn.GetComponent<EnemyBasic>().waypointList = new List<GameObject>(waypointList);
+                                                                    // Make a copy of waypoint list for the enemy.
             return true;
         }
         return false;
@@ -68,6 +76,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         InstantiatePrefabs();
+        waypointList = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -75,10 +84,15 @@ public class EnemySpawner : MonoBehaviour
     {
         // Temp code for testing.
         // Call spawnEnemy after appropriate spawn logic later.
-        bool successfullySpawned = spawnEnemy();
-        if (successfullySpawned)
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= spawnInterval)
         {
-            Debug.Log("Spawned one enemy. Number of enemies in local pool: " + localEnemyPool.Count);
+            spawnTimer = 0.0f;
+            bool successfullySpawned = spawnEnemy();
+            if (successfullySpawned)
+            {
+                Debug.Log("Spawned one enemy. Number of enemies in local pool: " + localEnemyPool.Count);
+            }
         }
     }
 }

@@ -10,11 +10,20 @@ using UnityEngine.SceneManagement;
 //                       i.e. gamemanager detects scene change
 //                            gamemanager tells other managers to start/stop their logic cycles through bool flags or function calls.
 
-// Handle scene management here too, as it shouldn't be too much code, maybe.;
+// Handle scene management here too, as it shouldn't be too much code, maybe.
+
+// Also, use gameManager to implement observer pattern.
+//      Run events in gameManager based on game logic.
+//      Other classes subscribe to these events and run their own logic based on the gameManager's events.
+
+//      Ex. Enemy phase starts, gameManager runs event. EnemySpawn is subscribed to this event and triggers StartSpawning().
+//          Preparation phase starts, gameManager runs event. EnemySpawn is subscribed to this event and triggers StopSpawning().
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
+
+    public GameObject playerReference;
 
     public static GameManager Instance
     {
@@ -61,6 +70,12 @@ public class GameManager : MonoBehaviour
     {
         // This function will be called whenever a new scene is loaded
         Debug.Log("Scene loaded: " + scene.name);
+
+        // if scene.name is GameScene1, set the playerReference
+        if (scene.name == "GameScene1")
+        {
+            playerReference = GameObject.Find("Player");
+        }
     }
 
     void OnSceneUnloaded(Scene scene)

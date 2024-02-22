@@ -618,4 +618,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9076bcc2241dd4142ae99ac3a37b5cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyList: []
+  spawnerPrefab: {fileID: 8272554485107136663, guid: 9cb705e93931cc643a0158bbc60dc0fa, type: 3}
+  spawnerList: []
