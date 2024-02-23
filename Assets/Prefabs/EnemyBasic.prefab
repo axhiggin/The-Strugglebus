@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointList: []
   speed: 10
+  isAttacking: 0
 --- !u!50 &-2789701540913806939
 Rigidbody2D:
   serializedVersion: 4

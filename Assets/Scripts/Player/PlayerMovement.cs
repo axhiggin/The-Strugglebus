@@ -1,4 +1,5 @@
 //Worked on by: Aidan
+//Added Player Rotation: Trevor
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,22 @@ public class PlayerMovement : MonoBehaviour
         {
             currDir = direction.down;
         }
+        //rotation (easy thanks to direction enum thanks)
+        switch (currDir)
+        {
+            case direction.up:
+                RotatePlayer(0);
+                break;
+            case direction.down:
+                RotatePlayer(180);
+                break;
+            case direction.left:
+                RotatePlayer(90);
+                break;
+            case direction.right:
+                RotatePlayer(270);
+                break;
+        }
         
     }
 
@@ -48,5 +65,10 @@ public class PlayerMovement : MonoBehaviour
     {
         //MOVE PLAYER
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+    }
+    //rotation
+    void RotatePlayer(float angle)
+    {
+        rb.rotation = angle;
     }
 }
