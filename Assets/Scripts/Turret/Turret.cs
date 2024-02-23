@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// Last edited - Norman Zhu 2:32AM 2/22/24
+// Last edited - Aidan Higgins 8:11 PM 2/22/2024, basically everything
 public class Turret : MonoBehaviour
 {
     //turret stats
-    [SerializeField] float Range = 3.0f, FireRate = 1.0f, Force = 100.0f;
+    [SerializeField] float Range = 3.0f, FireRate = 1.0f;
     [SerializeField] GameObject bullet;
     //list of enemies within range
     private List<GameObject> enemyList = new List<GameObject>();
@@ -32,11 +32,8 @@ public class Turret : MonoBehaviour
             //update target position
             Vector2 targetPos = enemy.transform.position;
             Direction = targetPos - (Vector2)transform.position;
-            Debug.Log(enemy.name);
-
             this.gameObject.transform.up = Direction;
 
-            Debug.Log(nextFire);
             nextFire += Time.deltaTime;
             if (1 / FireRate <= nextFire)
             {
@@ -59,7 +56,6 @@ public class Turret : MonoBehaviour
         if (collision.gameObject.transform.CompareTag("Enemy"))
         {
             enemyList.Add(collision.gameObject);
-            Debug.Log(enemyList.Count);
         }
     }
 
@@ -68,7 +64,6 @@ public class Turret : MonoBehaviour
         if (collision.gameObject.transform.CompareTag("Enemy"))
         {
             enemyList.Remove(collision.gameObject);
-            Debug.Log(enemyList.Count);
         }
     }
 }
