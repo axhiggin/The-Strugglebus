@@ -1,77 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Last edited - Norman Zhu 2:32AM 2/22/24
 public class Turret : MonoBehaviour
 {
-
-    public float Range; //radius range
-    public Transform Target; // position of target to shoot at 
-    bool Detected = false;
-
-    Vector2 Direction; // direction to face turret and bullets
-
-    public GameObject bullet;
-
-    public float FireRate;
-    float nextFire = 0;
-    public float Force; //speed of bullet
+    //turret stats
+    [SerializeField] float Range = 3.0f, FireRate = 1.0f, Force = 100.0f;
+    [SerializeField] GameObject bullet;
+    //list of enemies within range
+    private List<GameObject> enemyList = new List<GameObject>();
+    private CircleCollider2D cirCol;
+    private Vector2 Direction; // direction to face turret and bullet
+    private float nextFire = 0;
+    
 
     public Transform shootPoint; //shoot from this point
     void Start()
     {
-        
+        cirCol = GetComponent<CircleCollider2D>();
+        cirCol.radius = Range;
     }
 
 
     void Update()
     {
-        //update target position
-        Vector2 targetPos = Target.position;
-        Direction = targetPos - (Vector2)transform.position;
-
         //raycast for detection
-        RaycastHit2D rayInfo = Physics2D.Raycast(transform.position,Direction,Range);
-        if (rayInfo)
+        foreach (GameObject enemy in enemyList)
         {
-            if(rayInfo.collider.gameObject.tag == "Enemy") // target based on tag 
-            {
-                if (!Detected)
-                {
-                    Detected = true;
-                }
-            }
-            else
-            {
-                if (Detected)
-                {
-                    Detected = false;
-                }
-            }
-        }
-        if (Detected)
-        {
-            //face target
+            //update target position
+            Vector2 targetPos = enemy.transform.position;
+            Direction = targetPos - (Vector2)transform.position;
+            Debug.Log(enemy.name);
+
             this.gameObject.transform.up = Direction;
-            //shooting mechanism 
-            if(Time.time > nextFire)
+
+            Debug.Log(nextFire);
+            nextFire += Time.deltaTime;
+            if (1 / FireRate <= nextFire)
             {
-                nextFire = Time.time + 1 / FireRate;
-                shoot();
+                nextFire = 0f;
+                shoot(enemy);
             }
         }
     }
-    void shoot()
+
+    void shoot(GameObject enemy)
     {
         //spawn bullet
         GameObject BulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
-        BulletIns.GetComponent<Rigidbody2D>().AddForce(Direction * Force);
-        BulletIns.gameObject.transform.up = Direction;
+        BulletIns.GetComponent<Bullet>().enemy = enemy.transform;
     }
-    //Draw range for debugging
-    private void OnDrawGizmosSelected()
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Gizmos.DrawWireSphere(transform.position, Range);
+        if (collision.gameObject.transform.CompareTag("Enemy"))
+        {
+            enemyList.Add(collision.gameObject);
+            Debug.Log(enemyList.Count);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.transform.CompareTag("Enemy"))
+        {
+            enemyList.Remove(collision.gameObject);
+            Debug.Log(enemyList.Count);
+        }
     }
 }
