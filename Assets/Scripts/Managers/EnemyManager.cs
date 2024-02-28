@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
 
                                      // Instantiated, not object pooled.
                                      //         Only need one or a few at level start.
-                                     
+    
 
     private static EnemyManager _instance;
 
@@ -45,6 +45,8 @@ public class EnemyManager : MonoBehaviour
         SceneManager.sceneLoaded += spawnSpawner;
         spawnerList = new List<GameObject>();
     }
+
+
 
     private void spawnSpawner(Scene scene, LoadSceneMode mode)
     {
