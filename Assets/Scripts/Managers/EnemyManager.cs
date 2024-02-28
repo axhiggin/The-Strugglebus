@@ -12,11 +12,11 @@ public class EnemyManager : MonoBehaviour
 {
     public GameObject spawnerPrefab;
     public List<GameObject> spawnerList; // Each spawner handles its own local list of enemies.
-                                     //         And its own unique list of Waypoint references to map a route.
+                                         //         And its own unique list of Waypoint references to map a route.
 
-                                     // Instantiated, not object pooled.
-                                     //         Only need one or a few at level start.
-    
+                                         // Instantiated, not object pooled.
+                                         //         Only need one or a few at level start.
+
 
     private static EnemyManager _instance;
 
@@ -45,7 +45,6 @@ public class EnemyManager : MonoBehaviour
         SceneManager.sceneLoaded += spawnSpawner;
         spawnerList = new List<GameObject>();
     }
-
 
 
     private void spawnSpawner(Scene scene, LoadSceneMode mode)
