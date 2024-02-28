@@ -10,8 +10,8 @@ using UnityEngine.Tilemaps;
 
 public class PlayerBuild : MonoBehaviour
 {
-    [SerializeField] Tilemap tm;
-    [SerializeField] Tile tile;
+    // [SerializeField] Tilemap tm;
+    // [SerializeField] Tile tile;
     [SerializeField] PlayerMovement pm;
     void LateUpdate()
     {
@@ -43,8 +43,8 @@ public class PlayerBuild : MonoBehaviour
             // If the tile at currentCell in Tilemap tm is null, then place a tile and recalc flow field.
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
             {
-                PathingMap.Instance.tm.SetTile(currentCell, tile);
-                //PathingMap.Instance.generateFlowField(currentCell);
+                PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
+                PathingMap.Instance.generateFlowField(playerCell);
             }
             else
             {
@@ -62,7 +62,7 @@ public class PlayerBuild : MonoBehaviour
             if (PathingMap.Instance.tm.GetTile(currentCell) != null)
             {
                 PathingMap.Instance.tm.SetTile(currentCell, null);
-                //PathingMap.Instance.generateFlowField(currentCell);
+                PathingMap.Instance.generateFlowField(playerCell);
             }
             else
             {

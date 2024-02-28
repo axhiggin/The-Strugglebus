@@ -1,5 +1,7 @@
 //Worked on by: Aidan
 //Added Player Rotation: Trevor
+//Norman - 2/27/24 10:41PM - placeholder comment. Either use update or trigger to call PathingMap.Instance.generateFlowField(playerCell);
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

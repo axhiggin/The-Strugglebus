@@ -19,43 +19,65 @@ public class PathingMap : MonoBehaviour
             return _instance;
         }
     }
+    public int x_lower_bound = -10;
+    public int x_upper_bound = 10;
+    public int y_lower_bound = -10;
+    public int y_upper_bound = 10;
+    public float MAX_DISTANCE = 10000.0f;
     [SerializeField] 
     public Tilemap tm;
     [SerializeField] 
     public Tile tile;
 
-    public Dictionary<Vector3Int, int> flowMap;
+    public Dictionary<Vector3Int, float> flowMap;
     // List of flow fields (Dictionary<Vector3Int, int>) for each waypoint.
     //         Each dictionary indexed using Vector3Int of a cell, returns flow field value.
     //         Uses Vector3Int to pull return value directly from PlayerBuild.cs / Tilemap.WorldToCell
-    public Dictionary<Vector3Int, Vector3> flowField;
-    // Mirror of flowMaps, but instead of int, returns Vector3 of direction to move in.
-    //         Recalculated using flowMaps each time flowMaps is recalculated.
-    //         Reduce lookup time.
-
 
     // Use breadth first search from start to generate a flow field for the index of flowMaps
     public void generateFlowField(Vector3Int start)
     {
-        Dictionary<Vector3Int, int> this_map = new Dictionary<Vector3Int, int>();
         Queue<Vector3Int> queue = new Queue<Vector3Int>();
         queue.Enqueue(start);
 
         // Create a dictionary for visited cells and their distance from start
-        Dictionary<Vector3Int, int> visited = new Dictionary<Vector3Int, int>();
+        Dictionary<Vector3Int, float> visited = new Dictionary<Vector3Int, float>();
+
         visited[start] = 0;
 
         while (queue.Count > 0)
         {
             Vector3Int current = queue.Dequeue();
-            int distance = visited[current];
+            float distance = visited[current];
 
-            // Write a loop to visit all neighbors of the current cell
+            // Visit all adjacent neighbors of the current cell (distance increments by 1)
             foreach (Vector3Int neighbor in new Vector3Int[] {
                 current + Vector3Int.up,
                 current + Vector3Int.down,
                 current + Vector3Int.left,
-                current + Vector3Int.right,
+                current + Vector3Int.right})
+            {
+                // Check if the neighbor is not visited and the tile in Tilemap for that cell is null
+                if (!visited.ContainsKey(neighbor) && tm.GetTile(neighbor) == null)
+                {
+                    // PLACEHOLDER.
+                    // Check that it is within the defined bounds of the map.
+                    if (neighbor.x < x_upper_bound && neighbor.x > x_lower_bound && neighbor.y < y_upper_bound && neighbor.y > y_lower_bound)
+                    {
+                        // add it to the queue and the visited dictionary
+                        queue.Enqueue(neighbor);
+                        visited[neighbor] = distance + 1;
+                    }
+                }
+                // If we're not enqueueing it, and it's not already visited, then set it to MAX_DISTANCE.
+                else if (!visited.ContainsKey(neighbor))
+                {
+                    visited[neighbor] = MAX_DISTANCE;
+                }
+            }
+
+            // Visit all diagonal neighbors of the current cell (distance increments by diagonal (sqrt2))
+            foreach (Vector3Int neighbor in new Vector3Int[] {
                 current + Vector3Int.up + Vector3Int.left,
                 current + Vector3Int.up + Vector3Int.right,
                 current + Vector3Int.down + Vector3Int.left,
@@ -64,15 +86,25 @@ public class PathingMap : MonoBehaviour
                 // Check if the neighbor is not visited and the tile in Tilemap for that cell is null
                 if (!visited.ContainsKey(neighbor) && tm.GetTile(neighbor) == null)
                 {
-                    // If it is not, add it to the queue and the visited dictionary
-                    queue.Enqueue(neighbor);
-                    visited[neighbor] = distance + 1;
-                    this_map[neighbor] = distance + 1;
+                    // PLACEHOLDER.
+                    // Check that it is within the defined bounds of the map.
+                    if (neighbor.x < x_upper_bound && neighbor.x > x_lower_bound && neighbor.y < y_upper_bound && neighbor.y > y_lower_bound)
+                    {
+                        // add it to the queue and the visited dictionary
+                        queue.Enqueue(neighbor);
+                        visited[neighbor] = distance + Mathf.Sqrt(2);
+                    }
                 }
-
+                // If we're not enqueueing it, and it's not already visited, then set it to MAX_DISTANCE.
+                else if (!visited.ContainsKey(neighbor))
+                {
+                    visited[neighbor] = MAX_DISTANCE;
+                }
             }
-
         }
+
+        // Set the flow field for the start cell
+        flowMap = visited;
     }
 
     // Start is called before the first frame update
