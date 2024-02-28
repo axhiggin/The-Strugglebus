@@ -4,6 +4,22 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 // Norman - 2/27/24 8:53PM - Script created.
+//                           Functions:
+//                               - generateFlowField(Vector3Int start)
+//                               - get_valid_diagonals(Vector3Int current)
+//                           Variables:
+//                               - x_lower_bound, x_upper_bound, y_lower_bound, y_upper_bound
+//                                     Negative values OK. Define the edges of the grid using these variables.
+//                               - MAX_DISTANCE
+    //                                 Constant. Unpathable cells are set to this value to avoid null pointer errors.
+    //                                 Make sure it's higher than the max possible distance.
+//                               - tm, tile
+    //                                 Serialize field references to prefabs for the tileMap.
+//                               - flowMap
+//                                     Dictionary<Vector3Int, float>
+//                                     Index using Vector3Int, returns flow field value (float).
+//                                     EnemyBasic.cs will move in direction of lowest neighboring flow field value.
+
 public class PathingMap : MonoBehaviour
 {
     private static PathingMap _instance;
@@ -23,16 +39,40 @@ public class PathingMap : MonoBehaviour
     public int x_upper_bound = 10;
     public int y_lower_bound = -10;
     public int y_upper_bound = 10;
-    public float MAX_DISTANCE = 10000.0f;
+    public float MAX_DISTANCE = 100000.0f;
     [SerializeField] 
     public Tilemap tm;
     [SerializeField] 
     public Tile tile;
 
-    public Dictionary<Vector3Int, float> flowMap;
     // List of flow fields (Dictionary<Vector3Int, int>) for each waypoint.
     //         Each dictionary indexed using Vector3Int of a cell, returns flow field value.
     //         Uses Vector3Int to pull return value directly from PlayerBuild.cs / Tilemap.WorldToCell
+    public Dictionary<Vector3Int, float> flowMap;
+
+    // Making sure we're only iterating over the diagonals aren't blocked off on both cardinal sides,
+    // By making a list of the valid_diagonals. 
+    private List<Vector3Int> get_valid_diagonals(Vector3Int current)
+    {
+        List<Vector3Int> valid_diagonals = new List<Vector3Int>();
+        if (tm.GetTile(current + Vector3Int.up) == null || tm.GetTile(current + Vector3Int.left) == null)
+        {
+            valid_diagonals.Add(current + Vector3Int.up + Vector3Int.left);
+        }
+        if (tm.GetTile(current + Vector3Int.up) == null || tm.GetTile(current + Vector3Int.right) == null)
+        {
+            valid_diagonals.Add(current + Vector3Int.up + Vector3Int.right);
+        }
+        if (tm.GetTile(current + Vector3Int.down) == null || tm.GetTile(current + Vector3Int.right) == null)
+        {
+            valid_diagonals.Add(current + Vector3Int.down + Vector3Int.right);
+        }
+        if (tm.GetTile(current + Vector3Int.down) == null || tm.GetTile(current + Vector3Int.left) == null)
+        {
+            valid_diagonals.Add(current + Vector3Int.down + Vector3Int.left);
+        }
+        return valid_diagonals;
+    }
 
     // Use breadth first search from start to generate a flow field for the index of flowMaps
     public void generateFlowField(Vector3Int start)
@@ -76,12 +116,12 @@ public class PathingMap : MonoBehaviour
                 }
             }
 
+            // Making sure we're only iterating over the diagonals aren't blocked off on both cardinal sides,
+            // By making a list of the valid_diagonals. 
+            List<Vector3Int> valid_diagonals = get_valid_diagonals(current);
+
             // Visit all diagonal neighbors of the current cell (distance increments by diagonal (sqrt2))
-            foreach (Vector3Int neighbor in new Vector3Int[] {
-                current + Vector3Int.up + Vector3Int.left,
-                current + Vector3Int.up + Vector3Int.right,
-                current + Vector3Int.down + Vector3Int.left,
-                current + Vector3Int.down + Vector3Int.right})
+            foreach (Vector3Int neighbor in valid_diagonals)
             {
                 // Check if the neighbor is not visited and the tile in Tilemap for that cell is null
                 if (!visited.ContainsKey(neighbor) && tm.GetTile(neighbor) == null)
@@ -110,7 +150,15 @@ public class PathingMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // initialize flow map
+        flowMap = new Dictionary<Vector3Int, float>();
+        //for (int i = x_lower_bound; i < x_upper_bound; i++)
+        //{
+        //    for (int j = y_lower_bound; j < y_upper_bound; j++)
+        //    {
+        //        flowMap[new Vector3Int(i, j, 0)] = 0;
+        //    }
+        //}
     }
 
     // Update is called once per frame

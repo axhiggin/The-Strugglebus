@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 606726585932902283, guid: 27b3acf0fd292e6498d2acd4f269b4f2, type: 3}
-  maxEnemies: 5
   localEnemyPool: []
+  spawnTimer: 0
+  spawnInterval: 1
+  maxEnemies: 1
   waypointPrefab: {fileID: 3601087833602767382, guid: 041c3f08b03627a4d98201622feb5709, type: 3}
   waypointList: []

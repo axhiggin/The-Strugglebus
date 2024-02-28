@@ -26,6 +26,46 @@ public class EnemyBasic : MonoBehaviour
         isAttacking = false;
     }
 
+    // Making sure we're only iterating over the diagonals aren't blocked off on both cardinal sides,
+    // By making a list of the valid_diagonals. 
+    private List<Vector3Int> get_valid_diagonals(Vector3Int current)
+    {
+        List<Vector3Int> valid_diagonals = new List<Vector3Int>();
+        if (PathingMap.Instance.tm.GetTile(current + Vector3Int.up) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.left) == null)
+        {
+            // Check if current up left is within the bounds of the PathingMap grid.
+            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            {
+                valid_diagonals.Add(current + Vector3Int.up + Vector3Int.left);
+            }
+        }
+        if (PathingMap.Instance.tm.GetTile(current + Vector3Int.up) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.right) == null)
+        {
+            // Check if current up right is within the bounds of the PathingMap grid.
+            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            {
+                valid_diagonals.Add(current + Vector3Int.up + Vector3Int.right);
+            }
+        }
+        if (PathingMap.Instance.tm.GetTile(current + Vector3Int.down) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.right) == null)
+        {
+            // Check if current down right is within the bounds of the PathingMap grid.
+            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            {
+                valid_diagonals.Add(current + Vector3Int.down + Vector3Int.right);
+            }
+        }
+        if (PathingMap.Instance.tm.GetTile(current + Vector3Int.down) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.left) == null)
+        {
+            // Check if current down left is within the bounds of the PathingMap grid.
+            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            {
+                valid_diagonals.Add(current + Vector3Int.down + Vector3Int.left);
+            }
+        }
+        return valid_diagonals;
+    }
+
     // Uses the PathingMap to check adjacent cells in grid and find one with shortest distance to destination.
     // Returns a vector3 representing the direction to move in.
     Vector3 grabVectorFromPathingMap()
@@ -34,22 +74,23 @@ public class EnemyBasic : MonoBehaviour
         Vector3Int targetCell = new Vector3Int(0, 0, 0);
         float lowest_flow_value = -1.0f; // Initialized to -1.0f to indicate NULL.
 
+        List<Vector3Int> valid_neighbors = get_valid_diagonals(enemyCell);
+        valid_neighbors.Add(enemyCell + Vector3Int.up);
+        valid_neighbors.Add(enemyCell + Vector3Int.down);
+        valid_neighbors.Add(enemyCell + Vector3Int.left);
+        valid_neighbors.Add(enemyCell + Vector3Int.right);
+
         // Loop over valid neighboring cells and find the lowest flow field value.
-        foreach (Vector3Int neighbor in new Vector3Int[] {
-                enemyCell + Vector3Int.up,
-                enemyCell + Vector3Int.down,
-                enemyCell + Vector3Int.left,
-                enemyCell + Vector3Int.right,
-                enemyCell + Vector3Int.up + Vector3Int.left,
-                enemyCell + Vector3Int.up + Vector3Int.right,
-                enemyCell + Vector3Int.down + Vector3Int.left,
-                enemyCell + Vector3Int.down + Vector3Int.right})
+        foreach (Vector3Int neighbor in valid_neighbors)
         {
-            float neighbor_flow_value = PathingMap.Instance.flowMap[neighbor];
-            if (lowest_flow_value == -1.0f || neighbor_flow_value < lowest_flow_value)
+            if (PathingMap.Instance.flowMap[neighbor] != null)
             {
-                targetCell = neighbor;
-                lowest_flow_value = PathingMap.Instance.flowMap[neighbor];
+                float neighbor_flow_value = PathingMap.Instance.flowMap[neighbor];
+                if (lowest_flow_value == -1.0f || neighbor_flow_value < lowest_flow_value)
+                {
+                    targetCell = neighbor;
+                    lowest_flow_value = PathingMap.Instance.flowMap[neighbor];
+                }
             }
         }
 
