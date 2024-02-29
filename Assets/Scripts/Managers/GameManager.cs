@@ -31,16 +31,21 @@ public class GameManager : MonoBehaviour
     public static event MyEventHandler EndBuildPhaseEvent;
     public static event MyEventHandler StartEnemyPhaseEvent;
     public static event MyEventHandler EndEnemyPhaseEvent;
-    
+
     // THESE TWO VARIABLES WILL BE USED IN updateCurrentScaling().
+    [SerializeField]
     bool WE_WANT_TO_CLAMP_TIME_SCALING = true;      // Do we want to clamp time scaling?
+    [SerializeField]
     float MAX_TIME_SCALE = 20f;                     // max amount of seconds after which we clamp the difficulty scaling.
                                                     // Ex. If player finishes build/enemy phase before this time,
                                                     //     they benefit from having less of a difficulty spike.
 
+    [SerializeField]
     public int difficultyScaling = 1; // This should be a constant in the context of one game
                                       // of the game that defines the scaling curve,
                                             // "one game" being from start to until the player wins/loses
+                                      // But not constant.
+                                      // Maybe make a difficulty setting in the start menu.
 
     // ==================================================== SCALING WITH TIME ==============================================================
     private float currentScaling = 1f;// DO NOT ACCESS THIS VARIABLE DIRECTLY OR CHANGE TO PUBLIC
@@ -53,11 +58,15 @@ public class GameManager : MonoBehaviour
                                       // write them as functions depending on this float.
     private float startOfRoundCurrentScaling = 1f;
 
-    private float currentPhaseTimeElapsed = 0f; // reset at start of each phase.
-    public bool isBuildPhase = false;
-    public bool isEnemyPhase = false;
-    public bool gameIsOver = false;
+    public float currentPhaseTimeElapsed = 0f; // reset at start of each phase.
+                                               // actively incremented in update()
+    public bool isBuildPhase = false;          // updated when phase changes.
+    public bool isEnemyPhase = false;          // updated when phase changes.
+    public bool gameIsOver = false;            // NOT UPDATED YET.
+                                               
+    [SerializeField]
     private const float buildPhaseLengthSeconds = 20f;
+    [SerializeField]
     private const float enemyPhaseLengthSeconds = 20f;
 
     public static GameManager Instance
