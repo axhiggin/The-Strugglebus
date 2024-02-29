@@ -63,6 +63,14 @@ public class GameManager : MonoBehaviour
     public bool isBuildPhase = false;          // updated when phase changes.
     public bool isEnemyPhase = false;          // updated when phase changes.
     public bool gameIsOver = false;            // NOT UPDATED YET.
+
+    private int levelCount = 1;                // Use GameManager.Instance.getLevelCount();   // returns levelCount
+                                               //     GameManager.Instance.resetLevelCount(); // sets to 1
+                                               // This gets reset at the start of the game to 1.
+                                               // And incremented every time enemy phase ends.
+
+    private int currentScore = 0;              // Use GameManager.Instance.getScore();           // returns the score
+                                               //     GameManager.Instance.incrementScore(int x) // increments the score by x
                                                
     [SerializeField]
     private const float buildPhaseLengthSeconds = 20f;
@@ -169,7 +177,25 @@ public class GameManager : MonoBehaviour
         currentScaling += difficultyFunction(Time.deltaTime);
     }
 
+    public int getScore()
+    {
+        return currentScore;
+    }
 
+    public void incrementScore(int x)
+    {
+        currentScore += x;
+    }
+
+    // GETTER FUNCTION.
+    public int getLevelCount()
+    {
+        return levelCount;
+    }
+    public void resetLevelCount()
+    {
+        levelCount = 1;
+    }
     // GETTER FUNCTION. Use this when you need things to scale.
     //          *Don't change the variable to public or access directly from outside.
     public float getCurrentScaling()
@@ -179,7 +205,10 @@ public class GameManager : MonoBehaviour
     private void initializeStartOfGame()
     {
         currentScaling = 1f;
+        currentScore = 0;
+        resetLevelCount();
     }
+
 
     private void startBuildPhase()
     {
@@ -214,6 +243,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Ending enemy phase");
         isEnemyPhase = false;
+
+        levelCount++;
 
         EndEnemyPhaseEvent?.Invoke();
     }
