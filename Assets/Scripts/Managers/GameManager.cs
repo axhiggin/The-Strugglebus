@@ -21,9 +21,44 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // ====================================================== CONSTANTS ====================================================================
     private static GameManager _instance;
 
     public GameObject playerReference;
+    public delegate void MyEventHandler();
+
+    public static event MyEventHandler StartBuildPhaseEvent;
+    public static event MyEventHandler EndBuildPhaseEvent;
+    public static event MyEventHandler StartEnemyPhaseEvent;
+    public static event MyEventHandler EndEnemyPhaseEvent;
+    
+    // THESE TWO VARIABLES WILL BE USED IN updateCurrentScaling().
+    bool WE_WANT_TO_CLAMP_TIME_SCALING = true;      // Do we want to clamp time scaling?
+    float MAX_TIME_SCALE = 20f;                     // max amount of seconds after which we clamp the difficulty scaling.
+                                                    // Ex. If player finishes build/enemy phase before this time,
+                                                    //     they benefit from having less of a difficulty spike.
+
+    public int difficultyScaling = 1; // This should be a constant in the context of one game
+                                      // of the game that defines the scaling curve,
+                                            // "one game" being from start to until the player wins/loses
+
+    // ==================================================== SCALING WITH TIME ==============================================================
+    private float currentScaling = 1f;// DO NOT ACCESS THIS VARIABLE DIRECTLY OR CHANGE TO PUBLIC
+                                      // USE getCurrentScaling() FUNCTION
+                                      // This variable will be a function of the difficultyScaling curve and time elapsed or rounds elapsed.
+                                      // It will be incremented as enemyPhaseTime goes on in gameManager.
+                                      // Just using a linear function for now
+                                      // currentScaling += difficultyScaling * Time.deltaTime
+                                      // If you implement functions in other classes that you want to scale as a game goes on,
+                                      // write them as functions depending on this float.
+    private float startOfRoundCurrentScaling = 1f;
+
+    private float currentPhaseTimeElapsed = 0f; // reset at start of each phase.
+    public bool isBuildPhase = false;
+    public bool isEnemyPhase = false;
+    public bool gameIsOver = false;
+    private const float buildPhaseLengthSeconds = 20f;
+    private const float enemyPhaseLengthSeconds = 20f;
 
     public static GameManager Instance
     {
@@ -38,18 +73,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Hello world - GameManager.\n");
 
-        // Subscribe to the sceneLoaded event
+        // Subscribe to the sceneManager Events
         SceneManager.sceneLoaded += OnSceneLoaded;
-        // Subscribe to the sceneUnloaded event
         SceneManager.sceneUnloaded += OnSceneUnloaded;
 
         // Check if the current scene is named "StartScreen"
@@ -60,12 +99,117 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
+
+
     // Update is called once per frame
     void Update()
     {
-        
+        // If game's not over:
+        if (!gameIsOver)
+        {
+            // Increment timer and scaling.
+            currentPhaseTimeElapsed += Time.deltaTime;  // Timer.
+            // Debug.Log("currentPhaseTimeElapsed incremented to: " + currentPhaseTimeElapsed);
+            updateCurrentScaling();                     // Scaling.
+            // Debug.Log("Current scaling is: " + currentScaling);
+
+            // If build phase timed out, then end phase and start enemy phase.
+            if (isBuildPhase && currentPhaseTimeElapsed > buildPhaseLengthSeconds)
+            {
+                currentPhaseTimeElapsed = 0f;           // Reset timer.
+                endBuildPhase();                        // Switch phase.
+                startEnemyPhase();
+            }
+            // If enemy phase timed out, then end phase and start build phase.
+            if (isEnemyPhase && currentPhaseTimeElapsed > enemyPhaseLengthSeconds)
+            {
+                currentPhaseTimeElapsed = 0f;           // Reset timer.
+                endEnemyPhase();                        // Switch phase.
+                startBuildPhase();
+            }
+        }
     }
 
+
+
+
+    // Use some function to return how much to increment the currentScaling
+    // Based on given amount of time and the difficultyScaling curve.
+    private float difficultyFunction(float time)
+    {
+        return time * difficultyScaling; // Linear.
+    }
+
+
+
+
+    // Empties currentPhaseTimeElapsed, and increments currentScaling by a function of currentPhaseTimeElapsed and the difficultyScaling.
+    private void updateCurrentScaling()
+    {
+        if (WE_WANT_TO_CLAMP_TIME_SCALING)
+        {
+            if (currentScaling > startOfRoundCurrentScaling + difficultyFunction(MAX_TIME_SCALE))
+            {
+                // Debug.Log("Clamping currentScaling");
+                currentScaling = startOfRoundCurrentScaling + difficultyFunction(MAX_TIME_SCALE);
+            }
+        }
+        // Some function to set currentScaling
+        currentScaling += difficultyFunction(Time.deltaTime);
+    }
+
+
+    // GETTER FUNCTION. Use this when you need things to scale.
+    //          *Don't change the variable to public or access directly from outside.
+    public float getCurrentScaling()
+    {
+        return currentScaling;
+    }
+    private void initializeStartOfGame()
+    {
+        currentScaling = 1f;
+    }
+
+    private void startBuildPhase()
+    {
+        Debug.Log("Starting build phase");
+        // Reset time.
+        currentPhaseTimeElapsed = 0f;
+        // Resets currentScaling slightly per round.
+        currentScaling = currentScaling / 2.0f;
+        startOfRoundCurrentScaling = currentScaling; // Track current scaling at start, to clamp later.
+        isBuildPhase = true;
+
+
+        StartBuildPhaseEvent?.Invoke();
+    }
+    private void endBuildPhase()
+    {
+        Debug.Log("Ending build phase");
+        isBuildPhase = false;
+
+        EndBuildPhaseEvent?.Invoke();
+    }
+    private void startEnemyPhase()
+    {
+        Debug.Log("Starting enemy phase");
+        isEnemyPhase = true;
+        // Reset time.
+        currentPhaseTimeElapsed = 0f;
+
+        StartEnemyPhaseEvent?.Invoke();
+    }
+    private void endEnemyPhase()
+    {
+        Debug.Log("Ending enemy phase");
+        isEnemyPhase = false;
+
+        EndEnemyPhaseEvent?.Invoke();
+    }
+
+    // SCENE LOAD TRIGGERS. Functions are subscribed to the sceneManager.
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // This function will be called whenever a new scene is loaded
@@ -75,9 +219,12 @@ public class GameManager : MonoBehaviour
         if (scene.name == "GameScene1")
         {
             playerReference = GameObject.Find("Player");
+
+            // START THE GAME!
+            initializeStartOfGame();
+            startBuildPhase();
         }
     }
-
     void OnSceneUnloaded(Scene scene)
     {
         // This function will be called whenever a scene is unloaded

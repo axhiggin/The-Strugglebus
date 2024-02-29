@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     public int maxEnemies = 5;              // Max number of enemies to be spawned by this spawner at one time.
                                             // Also used during instantiation of object pool.
                                             // Default = 5.
+    private bool shouldSpawn = false;
 
     public GameObject waypointPrefab;       
     public List<GameObject> waypointList;   // Contains a list of waypoints for enemies to travel through.
@@ -77,21 +78,45 @@ public class EnemySpawner : MonoBehaviour
     {
         InstantiatePrefabs();
         waypointList = new List<GameObject>();
+
+        GameManager.StartEnemyPhaseEvent += startSpawning;
+        GameManager.EndEnemyPhaseEvent += stopSpawning;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.StartEnemyPhaseEvent -= startSpawning;
+        GameManager.EndEnemyPhaseEvent -= stopSpawning;
+    }
+
+    private void startSpawning()
+    {
+        Debug.Log("Spawner.cs/startSpawning() was successfully invoked through event system.");
+        shouldSpawn = true;
+    }
+
+    private void stopSpawning()
+    {
+        Debug.Log("Spawner.cs/stopSpawning() was successfully invoked through event system.");
+        shouldSpawn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Temp code for testing.
-        // Call spawnEnemy after appropriate spawn logic later.
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnInterval)
+        if (shouldSpawn)
         {
-            spawnTimer = 0.0f;
-            bool successfullySpawned = spawnEnemy();
-            if (successfullySpawned)
+            // Temp code for testing.
+            // Call spawnEnemy after appropriate spawn logic later.
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer >= spawnInterval)
             {
-                Debug.Log("Spawned one enemy. Number of enemies in local pool: " + localEnemyPool.Count);
+                spawnTimer = 0.0f;
+                bool successfullySpawned = spawnEnemy();
+                if (successfullySpawned)
+                {
+                    // Debug.Log("Spawned one enemy. Number of enemies in local pool: " + localEnemyPool.Count);
+                }
             }
         }
     }
