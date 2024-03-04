@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -76,7 +77,9 @@ public class GameManager : MonoBehaviour
     private const float buildPhaseLengthSeconds = 20f;
     [SerializeField]
     private const float enemyPhaseLengthSeconds = 20f;
-
+    //-----------------------------------------------------VariablesForOtherClasses----------------------------------------------------------------//
+    private bool tutorialEnabler = true;
+    public TextMeshProUGUI timerLabel;
     public static GameManager Instance
     {
         get
@@ -109,20 +112,28 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
 
         // Check if the current scene is named "StartScreen"
-        if (SceneManager.GetActiveScene().name == "StartScreen")
-        {
-            // Change scene to "GameScene1"
-            SceneManager.LoadScene("GameScene1");
-        }
+       //f (SceneManager.GetActiveScene().name == "StartScreen")
+       //
+       //   // Change scene to "GameScene1"
+       //   SceneManager.LoadScene("GameScene1");
+       //
     }
-
-
 
 
 
     // Update is called once per frame
     void Update()
     {
+        //Gets Canvas when Scene is GameScene and then updates the label 
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            GameObject timerLabelObject = GameObject.Find("TimerLabel");
+            if(timerLabelObject != null) 
+            {
+                timerLabel = timerLabelObject.GetComponent<TextMeshProUGUI>(); 
+            }
+
+        }
         // If game's not over:
         if (!gameIsOver)
         {
@@ -131,7 +142,8 @@ public class GameManager : MonoBehaviour
             // Debug.Log("currentPhaseTimeElapsed incremented to: " + currentPhaseTimeElapsed);
             updateCurrentScaling();                     // Scaling.
             // Debug.Log("Current scaling is: " + currentScaling);
-
+            //Timer updates UI Label
+            UpdateTimerLabel();
             // If build phase timed out, then end phase and start enemy phase.
             if (isBuildPhase && currentPhaseTimeElapsed > buildPhaseLengthSeconds)
             {
@@ -270,4 +282,18 @@ public class GameManager : MonoBehaviour
         // This function will be called whenever a scene is unloaded
         Debug.Log("Scene unloaded: " + scene.name);
     }
+
+    public bool GetTutorialEnabler()
+    {
+        return tutorialEnabler;
+    }
+
+    private void UpdateTimerLabel()
+    {
+        if (timerLabel != null)
+        {
+            timerLabel.text = "Time: " + Mathf.Round(currentPhaseTimeElapsed);
+        }
+    }
+
 }
