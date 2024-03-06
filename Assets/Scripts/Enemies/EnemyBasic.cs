@@ -83,13 +83,15 @@ public class EnemyBasic : MonoBehaviour
         // Loop over valid neighboring cells and find the lowest flow field value.
         foreach (Vector3Int neighbor in valid_neighbors)
         {
-            if (PathingMap.Instance.flowMap[neighbor] != null)
+            int array_y = neighbor.y - PathingMap.Instance.y_lower_bound;
+            int array_x = neighbor.x - PathingMap.Instance.x_lower_bound;
+            if (PathingMap.Instance.flowMapArray[array_y, array_x] != -1)
             {
-                float neighbor_flow_value = PathingMap.Instance.flowMap[neighbor];
+                float neighbor_flow_value = PathingMap.Instance.flowMapArray[array_y, array_x];
                 if (lowest_flow_value == -1.0f || neighbor_flow_value < lowest_flow_value)
                 {
                     targetCell = neighbor;
-                    lowest_flow_value = PathingMap.Instance.flowMap[neighbor];
+                    lowest_flow_value = PathingMap.Instance.flowMapArray[array_y, array_x];
                 }
             }
         }
