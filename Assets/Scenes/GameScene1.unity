@@ -992,13 +992,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bee589664ccc6459062de6c38ce0a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x_lower_bound: -10
-  x_upper_bound: 10
-  y_lower_bound: -10
-  y_upper_bound: 10
+  x_lower_bound: -8
+  x_upper_bound: 7
+  y_lower_bound: -4
+  y_upper_bound: 3
   MAX_DISTANCE: 100000
   tm: {fileID: 719566322}
   tile: {fileID: 11400000, guid: 3b4e3c633cb5e8047a29ae6b0eb482dd, type: 2}
+  debugSquare: {fileID: 8315598176368686725, guid: 2927ae15541da38499b38195eab5947a, type: 3}
 --- !u!1 &322925202
 GameObject:
   m_ObjectHideFlags: 0

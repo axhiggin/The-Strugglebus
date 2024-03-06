@@ -34,7 +34,7 @@ public class EnemyBasic : MonoBehaviour
         if (PathingMap.Instance.tm.GetTile(current + Vector3Int.up) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.left) == null)
         {
             // Check if current up left is within the bounds of the PathingMap grid.
-            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            if (current.x + 1 <= PathingMap.Instance.x_upper_bound && current.y + 1 <= PathingMap.Instance.y_upper_bound)
             {
                 valid_diagonals.Add(current + Vector3Int.up + Vector3Int.left);
             }
@@ -42,7 +42,7 @@ public class EnemyBasic : MonoBehaviour
         if (PathingMap.Instance.tm.GetTile(current + Vector3Int.up) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.right) == null)
         {
             // Check if current up right is within the bounds of the PathingMap grid.
-            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            if (current.x + 1 <= PathingMap.Instance.x_upper_bound && current.y + 1 <= PathingMap.Instance.y_upper_bound)
             {
                 valid_diagonals.Add(current + Vector3Int.up + Vector3Int.right);
             }
@@ -50,7 +50,7 @@ public class EnemyBasic : MonoBehaviour
         if (PathingMap.Instance.tm.GetTile(current + Vector3Int.down) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.right) == null)
         {
             // Check if current down right is within the bounds of the PathingMap grid.
-            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            if (current.x + 1 <= PathingMap.Instance.x_upper_bound && current.y + 1 <= PathingMap.Instance.y_upper_bound)
             {
                 valid_diagonals.Add(current + Vector3Int.down + Vector3Int.right);
             }
@@ -58,7 +58,7 @@ public class EnemyBasic : MonoBehaviour
         if (PathingMap.Instance.tm.GetTile(current + Vector3Int.down) == null || PathingMap.Instance.tm.GetTile(current + Vector3Int.left) == null)
         {
             // Check if current down left is within the bounds of the PathingMap grid.
-            if (current.x + 1 < PathingMap.Instance.x_upper_bound && current.y + 1 < PathingMap.Instance.y_upper_bound)
+            if (current.x + 1 <= PathingMap.Instance.x_upper_bound && current.y + 1 <= PathingMap.Instance.y_upper_bound)
             {
                 valid_diagonals.Add(current + Vector3Int.down + Vector3Int.left);
             }
@@ -74,11 +74,15 @@ public class EnemyBasic : MonoBehaviour
         Vector3Int targetCell = new Vector3Int(0, 0, 0);
         float lowest_flow_value = -1.0f; // Initialized to -1.0f to indicate NULL.
 
-        List<Vector3Int> valid_neighbors = get_valid_diagonals(enemyCell);
-        valid_neighbors.Add(enemyCell + Vector3Int.up);
-        valid_neighbors.Add(enemyCell + Vector3Int.down);
-        valid_neighbors.Add(enemyCell + Vector3Int.left);
-        valid_neighbors.Add(enemyCell + Vector3Int.right);
+        List<Vector3Int> valid_neighbors = PathingMap.Instance.get_valid_diagonals(enemyCell);
+        if (PathingMap.Instance.v3int_in_bounds(enemyCell + Vector3Int.up))
+            valid_neighbors.Add(enemyCell + Vector3Int.up);
+        if (PathingMap.Instance.v3int_in_bounds(enemyCell + Vector3Int.down))
+            valid_neighbors.Add(enemyCell + Vector3Int.down);
+        if (PathingMap.Instance.v3int_in_bounds(enemyCell + Vector3Int.left))
+            valid_neighbors.Add(enemyCell + Vector3Int.left);
+        if (PathingMap.Instance.v3int_in_bounds(enemyCell + Vector3Int.right))
+            valid_neighbors.Add(enemyCell + Vector3Int.right);
 
         // Loop over valid neighboring cells and find the lowest flow field value.
         foreach (Vector3Int neighbor in valid_neighbors)
