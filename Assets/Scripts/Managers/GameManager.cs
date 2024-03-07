@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private const float enemyPhaseLengthSeconds = 20f;
     //-----------------------------------------------------VariablesForOtherClasses----------------------------------------------------------------//
+    
+    //maybe change accessability, just temporary
+    public float materialCount = 10f;
+
+
     private bool tutorialEnabler = true;
     public TextMeshProUGUI timerLabel;
     public static GameManager Instance

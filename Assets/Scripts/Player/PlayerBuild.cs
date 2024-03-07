@@ -45,6 +45,8 @@ public class PlayerBuild : MonoBehaviour
             {
                 PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
                 PathingMap.Instance.generateFlowField(playerCell);
+                //change material count
+                GameManager.Instance.materialCount--;
             }
             else
             {
@@ -63,6 +65,8 @@ public class PlayerBuild : MonoBehaviour
             {
                 PathingMap.Instance.tm.SetTile(currentCell, null);
                 PathingMap.Instance.generateFlowField(playerCell);
+                //change material count
+                GameManager.Instance.materialCount++;
             }
             else
             {

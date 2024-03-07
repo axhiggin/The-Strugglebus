@@ -73,4 +73,16 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.rotation = angle;
     }
+
+    //picking up materials
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Material"))
+        {
+            Destroy(collision.transform);
+            GameManager.Instance.materialCount += 1;
+            //update UI here
+
+        }
+    }
 }
