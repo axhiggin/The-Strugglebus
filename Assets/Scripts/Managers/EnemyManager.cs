@@ -13,9 +13,11 @@ public class EnemyManager : MonoBehaviour
     public GameObject spawnerPrefab;
     public List<GameObject> spawnerList; // Each spawner handles its own local list of enemies.
                                          //         And its own unique list of Waypoint references to map a route.
+    
+    public GameObject[] enemySpritePrefab;
 
-                                         // Instantiated, not object pooled.
-                                         //         Only need one or a few at level start.
+    // Instantiated, not object pooled.
+    //         Only need one or a few at level start.
 
     private static EnemyManager _instance;
 
@@ -50,7 +52,8 @@ public class EnemyManager : MonoBehaviour
     {
         if (scene.name == "GameScene1")
         {
-            Debug.Log("EnemyManager: Spawning spawner.");
+            if (GameManager.DEBUG_MODE)
+                Debug.Log("EnemyManager: Spawning spawner.");
             // TEMP CODE. HARD CODED SPAWNER LOCATION.
             Vector3 spawnLoc = new Vector3(2, 2, 0);
             GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);

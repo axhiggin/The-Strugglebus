@@ -910,6 +910,7 @@ MonoBehaviour:
   gameIsOver: 0
   buildPhaseLengthSeconds: 5
   enemyPhaseLengthSeconds: 20
+  materialCount: 10
   timerLabel: {fileID: 0}
 --- !u!1 &699078045
 GameObject:
@@ -1389,6 +1390,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnerPrefab: {fileID: 8272554485107136663, guid: 9cb705e93931cc643a0158bbc60dc0fa, type: 3}
   spawnerList: []
+  enemySpritePrefab:
+  - {fileID: 8872205622110674290, guid: b4256a735f6fa9f41b5bfa2a8c693a16, type: 3}
 --- !u!1 &1748063808
 GameObject:
   m_ObjectHideFlags: 0

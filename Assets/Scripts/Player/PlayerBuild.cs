@@ -51,8 +51,10 @@ public class PlayerBuild : MonoBehaviour
             else
             {
                 // Otherwise, don't recalculate flow field, because nothing was placed.
-                Debug.Log("Tile already exists at " + currentCell);
+
                 // Play sound effect / particles here maybe.
+                if (GameManager.DEBUG_MODE)
+                    Debug.Log("Tile already exists at " + currentCell);
 
             }
         }
@@ -71,10 +73,15 @@ public class PlayerBuild : MonoBehaviour
             else
             {
                 // Otherwise, don't recalculate flow field, because nothing was deleted.
-                Debug.Log("No tile to delete at " + currentCell);
+
                 // Play sound effect / particles here maybe.
+
+                if (GameManager.DEBUG_MODE)
+                    Debug.Log("No tile to delete at " + currentCell);
             }
             PathingMap.Instance.tm.SetTile(currentCell, null);
         }
     }
+
+
 }

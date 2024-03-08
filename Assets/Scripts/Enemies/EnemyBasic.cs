@@ -16,16 +16,37 @@ public class EnemyBasic : MonoBehaviour
     public float speed = 3.0f;
     public float health = 10.0f;
 
+    private GameObject spriteHolder; // game object that will hold the sprite.
+
     // Enemy state flag. isAttacking represents something in range to attack.
     // if isAttacking == true, ignore pathfinding/waypoints. 
     public bool isAttacking;
 
     public const bool USE_PATHING_MAP = true;
     [SerializeField] GameObject material;
-    
+
+    private void setSprite(GameObject spritePrefab)
+    {
+        // Instantiate the spritePrefab
+        spriteHolder = Instantiate(spritePrefab, transform.position, Quaternion.identity);
+
+        // Make the current game object the parent of the instantiated sprite
+        spriteHolder.transform.SetParent(transform);
+    }
+
+    // Destroy the enemy's sprite when the enemy is destroyed.
+    void OnDestroy()
+    {
+        Destroy(spriteHolder);
+    }
     void Start()
     {
         isAttacking = false;
+
+        setSprite(EnemyManager.Instance.enemySpritePrefab[0]);
+            // Creates a child object to hold the sprite.
+            // Allows for resizing of sprite without affecting the collider.
+        
     }
 
     // Making sure we're only iterating over the diagonals aren't blocked off on both cardinal sides,

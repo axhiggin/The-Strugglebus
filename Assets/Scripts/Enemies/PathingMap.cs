@@ -28,6 +28,7 @@ using UnityEngine.Tilemaps;
 public class PathingMap : MonoBehaviour
 {
     private static PathingMap _instance;
+    public GameObject endpoint;             // The endpoint for the enemies to reach.
     public static PathingMap Instance
     {
         get
@@ -55,7 +56,7 @@ public class PathingMap : MonoBehaviour
     [SerializeField]
     public Tile tile;
     [SerializeField]
-    public const bool DEBUG_MODE = false;
+    public const bool DEBUG_MODE = false;   // PathingMap debug mode prints out squares on each tile
     [SerializeField]
     public GameObject debugSquare;
     private List<GameObject> debugPool;
@@ -150,6 +151,21 @@ public class PathingMap : MonoBehaviour
 
             // Set the color of the material
             renderer.material.color = color;
+        }
+    }
+
+    public void generateFlowFieldToEndpoint()
+    {
+        if (endpoint != null)
+        {
+            Vector3 endpointPosition = endpoint.transform.position;
+            Vector3Int endpointCell = tm.WorldToCell(endpointPosition);
+            generateFlowField(endpointCell);
+        }
+        else
+        {
+            Debug.Log("attempted to generate flow field to null 'endpoint' gameobject in PathingMap.cs");
+            Debug.Log("no flow field was generated.");
         }
     }
 
@@ -270,31 +286,6 @@ public class PathingMap : MonoBehaviour
         flowMapArray = visitedArray;
     }
 
-    //void tileBox()
-    //{
-    //    for (int i = y_lower_bound; i <= y_upper_bound + 1; ++i)
-    //    {
-    //        Vector3Int leftWall = new Vector3Int(x_lower_bound - 1, i, 0);
-    //        Vector3Int rightWall = new Vector3Int(x_upper_bound + 1, i, 0);
-    //        tm.SetTile(leftWall, rightfacingWall);
-    //        tm.SetTile(rightWall, leftfacingWall);
-    //    }
-    //    Vector3Int swCornerCoord = new Vector3Int(x_lower_bound - 1, y_lower_bound - 1, 0);
-    //    tm.SetTile(swCornerCoord, swCorner);
-    //    Vector3Int seCornerCoord = new Vector3Int(x_upper_bound + 1, y_lower_bound - 1, 0);
-    //    tm.SetTile(seCornerCoord, seCorner);
-
-    //    for (int i = x_lower_bound; i <= x_upper_bound; ++i)
-    //    {
-    //        Vector3Int topWall = new Vector3Int(i, y_upper_bound + 1, 0);
-    //        Vector3Int botWall = new Vector3Int(i, y_lower_bound - 1, 0);
-    //        tm.SetTile(topWall, downfacingWall);
-    //        tm.SetTile(botWall, upfacingWall);
-    //    }
-
-    //    Debug.Log("finished setting tilebox for walls");
-    //}
-
     // Start is called before the first frame update
     void Start()
     {
@@ -325,3 +316,29 @@ public class PathingMap : MonoBehaviour
 
     }
 }
+
+
+//void tileBox()
+//{
+//    for (int i = y_lower_bound; i <= y_upper_bound + 1; ++i)
+//    {
+//        Vector3Int leftWall = new Vector3Int(x_lower_bound - 1, i, 0);
+//        Vector3Int rightWall = new Vector3Int(x_upper_bound + 1, i, 0);
+//        tm.SetTile(leftWall, rightfacingWall);
+//        tm.SetTile(rightWall, leftfacingWall);
+//    }
+//    Vector3Int swCornerCoord = new Vector3Int(x_lower_bound - 1, y_lower_bound - 1, 0);
+//    tm.SetTile(swCornerCoord, swCorner);
+//    Vector3Int seCornerCoord = new Vector3Int(x_upper_bound + 1, y_lower_bound - 1, 0);
+//    tm.SetTile(seCornerCoord, seCorner);
+
+//    for (int i = x_lower_bound; i <= x_upper_bound; ++i)
+//    {
+//        Vector3Int topWall = new Vector3Int(i, y_upper_bound + 1, 0);
+//        Vector3Int botWall = new Vector3Int(i, y_lower_bound - 1, 0);
+//        tm.SetTile(topWall, downfacingWall);
+//        tm.SetTile(botWall, upfacingWall);
+//    }
+
+//    Debug.Log("finished setting tilebox for walls");
+//}

@@ -23,6 +23,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // ====================================================== CONSTANTS ====================================================================
+    public const bool DEBUG_MODE = true; // Set to false to disable various debug prints and other dependents.
+    
     private static GameManager _instance;
 
     public GameObject playerReference;
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     private int currentScore = 0;              // Use GameManager.Instance.getScore();           // returns the score
                                                //     GameManager.Instance.incrementScore(int x) // increments the score by x
+    public const int DEFAULT_LIVES = 10;
+    private int livesRemaining = 0;
     // Default values set here. 
     // SerializeField means you can change in inspector.
     // Inspector values will override values here.
@@ -112,7 +116,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Hello world - GameManager.\n");
+        if (DEBUG_MODE)
+            Debug.Log("Hello world - GameManager.\n");
 
         // Subscribe to the sceneManager Events
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -225,13 +230,15 @@ public class GameManager : MonoBehaviour
     {
         currentScaling = 1f;
         currentScore = 0;
+        livesRemaining = DEFAULT_LIVES;
         resetLevelCount();
     }
 
 
     private void startBuildPhase()
     {
-        Debug.Log("Starting build phase");
+        if (DEBUG_MODE)
+            Debug.Log("Starting build phase");
         // Reset time.
         currentPhaseTimeElapsed = 0f;
         // Resets currentScaling slightly per round.
@@ -239,18 +246,21 @@ public class GameManager : MonoBehaviour
         startOfRoundCurrentScaling = currentScaling; // Track current scaling at start, to clamp later.
         isBuildPhase = true;
 
-
+        playerReference.SetActive(true);
         StartBuildPhaseEvent?.Invoke();
     }
     private void endBuildPhase()
     {
-        Debug.Log("Ending build phase");
+        if (DEBUG_MODE)
+            Debug.Log("Ending build phase");
         isBuildPhase = false;
 
+        playerReference.SetActive(false);
         EndBuildPhaseEvent?.Invoke();
     }
     private void startEnemyPhase()
     {
+        if (DEBUG_MODE)
         Debug.Log("Starting enemy phase");
         isEnemyPhase = true;
         // Reset time.
@@ -260,6 +270,7 @@ public class GameManager : MonoBehaviour
     }
     private void endEnemyPhase()
     {
+        if (DEBUG_MODE)
         Debug.Log("Ending enemy phase");
         isEnemyPhase = false;
 
@@ -285,9 +296,9 @@ public class GameManager : MonoBehaviour
         }
     }
     void OnSceneUnloaded(Scene scene)
-    {
-        // This function will be called whenever a scene is unloaded
-        Debug.Log("Scene unloaded: " + scene.name);
+    {// This function will be called whenever a scene is unloaded
+        if (DEBUG_MODE)
+            Debug.Log("Scene unloaded: " + scene.name);
     }
 
     public bool GetTutorialEnabler()
