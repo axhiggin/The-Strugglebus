@@ -72,7 +72,9 @@ public class GameManager : MonoBehaviour
 
     private int currentScore = 0;              // Use GameManager.Instance.getScore();           // returns the score
                                                //     GameManager.Instance.incrementScore(int x) // increments the score by x
-                                               
+    // Default values set here. 
+    // SerializeField means you can change in inspector.
+    // Inspector values will override values here.
     [SerializeField]
     private float buildPhaseLengthSeconds = 20f;
     [SerializeField]
