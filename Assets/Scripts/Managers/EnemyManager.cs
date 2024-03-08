@@ -17,7 +17,6 @@ public class EnemyManager : MonoBehaviour
                                          // Instantiated, not object pooled.
                                          //         Only need one or a few at level start.
 
-
     private static EnemyManager _instance;
 
     public static EnemyManager Instance
