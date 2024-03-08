@@ -37,7 +37,7 @@ public class PlayerBuild : MonoBehaviour
             currentCell.y -= 1;
         }
 
-        //places a barrier
+        //places a barrier                     ADD && GameManager.Instance.materialCount > 0 when actually testing
         if (Input.GetKeyDown(KeyCode.E))
         {
             // If the tile at currentCell in Tilemap tm is null, then place a tile and recalc flow field.
@@ -45,6 +45,8 @@ public class PlayerBuild : MonoBehaviour
             {
                 PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
                 PathingMap.Instance.generateFlowField(playerCell);
+                //change material count
+                GameManager.Instance.materialCount--;
             }
             else
             {
@@ -63,6 +65,8 @@ public class PlayerBuild : MonoBehaviour
             {
                 PathingMap.Instance.tm.SetTile(currentCell, null);
                 PathingMap.Instance.generateFlowField(playerCell);
+                //change material count
+                GameManager.Instance.materialCount++;
             }
             else
             {

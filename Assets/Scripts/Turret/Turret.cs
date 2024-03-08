@@ -46,7 +46,10 @@ public class Turret : MonoBehaviour
     void shoot(GameObject enemy)
     {
         //spawn bullet
-        GameObject BulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
+        GameObject BulletIns = BulletPooler.Instance.GetPooledObject();
+        BulletIns.transform.position = shootPoint.position;
+        BulletIns.transform.rotation = Quaternion.identity;
+        BulletIns.SetActive(true);
         BulletIns.GetComponent<Bullet>().enemy = enemy.transform;
     }
 

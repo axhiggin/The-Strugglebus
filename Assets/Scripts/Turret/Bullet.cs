@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] float bulletSpeed = 5.0f;
+    [SerializeField] float bulletSpeed = 20.0f, bulletDamage = 5.0f;
     public Transform enemy;
     private Rigidbody2D rb;
     // Start is called before the first frame update
@@ -23,7 +23,9 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D Col){
         if (Col.gameObject.transform.CompareTag("Enemy"))
         {
-            Destroy(this.gameObject);
+            Col.GetComponent<EnemyBasic>().damageEnemy(bulletDamage);
+            Debug.Log("hit enemy for: " + bulletDamage);
+            this.gameObject.SetActive(false);
         }
     }
 }

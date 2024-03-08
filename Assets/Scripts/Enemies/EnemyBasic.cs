@@ -13,13 +13,15 @@ public class EnemyBasic : MonoBehaviour
     public List<GameObject> waypointList;      // Contains an ordered list of waypoints for enemies to travel through.
                                                // Inherited from parent enemySpawner when 'spawned'.
                                                // Remove vector3s from list as traversed.
-    public float speed = 10.0f;
+    public float speed = 3.0f;
+    public float health = 10.0f;
 
     // Enemy state flag. isAttacking represents something in range to attack.
     // if isAttacking == true, ignore pathfinding/waypoints. 
     public bool isAttacking;
 
     public const bool USE_PATHING_MAP = true;
+    [SerializeField] GameObject material;
     
     void Start()
     {
@@ -144,5 +146,26 @@ public class EnemyBasic : MonoBehaviour
         // If player in range.
         //         Override waypoints and target player.
 
+    }
+
+
+    //take away enemy health
+    public void damageEnemy(float damageNumber)
+    {
+        health -= damageNumber;
+        if (health <= 0)
+        {
+            dropMaterial();
+            gameObject.SetActive(false);
+        }
+    }
+
+    //randomly drop materials
+    private void dropMaterial()
+    {
+        if (Random.Range(0, 10) > 5)
+        {
+            Instantiate(material, this.transform).transform.SetParent(null);
+        }
     }
 }
