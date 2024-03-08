@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         if (Col.gameObject.transform.CompareTag("Enemy"))
         {
             Col.GetComponent<EnemyBasic>().damageEnemy(3);
-            Destroy(this);
+            this.gameObject.SetActive(false);
         }
     }
 }

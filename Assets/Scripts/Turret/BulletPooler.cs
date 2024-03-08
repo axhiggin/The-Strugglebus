@@ -21,6 +21,7 @@ public class BulletPooler : MonoBehaviour
         for (int i = 0; i < numInPool; i++)
         {
             tmp = Instantiate(bullet);
+            tmp.transform.SetParent(this.transform, false);
             tmp.SetActive(false);
             objects.Add(tmp);
         }
