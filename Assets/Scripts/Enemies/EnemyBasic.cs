@@ -13,7 +13,7 @@ public class EnemyBasic : MonoBehaviour
     public List<GameObject> waypointList;      // Contains an ordered list of waypoints for enemies to travel through.
                                                // Inherited from parent enemySpawner when 'spawned'.
                                                // Remove vector3s from list as traversed.
-    public float speed = 10.0f;
+    public float speed = 3.0f;
     public float health = 10.0f;
 
     // Enemy state flag. isAttacking represents something in range to attack.
@@ -155,8 +155,8 @@ public class EnemyBasic : MonoBehaviour
         health -= damageNumber;
         if (health <= 0)
         {
-            this.gameObject.SetActive(false);
             dropMaterial();
+            gameObject.SetActive(false);
         }
     }
 
@@ -165,7 +165,7 @@ public class EnemyBasic : MonoBehaviour
     {
         if (Random.Range(0, 10) > 5)
         {
-            Instantiate(material, this.transform, true);
+            Instantiate(material, this.transform).transform.SetParent(null);
         }
     }
 }

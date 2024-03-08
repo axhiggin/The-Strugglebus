@@ -10,7 +10,7 @@ public class MaterialScript : MonoBehaviour
         {
             Debug.Log("material picked up");
             GameManager.Instance.materialCount += 1;
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }
