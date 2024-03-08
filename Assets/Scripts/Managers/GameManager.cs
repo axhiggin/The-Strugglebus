@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
                                       // write them as functions depending on this float.
     private float startOfRoundCurrentScaling = 1f;
 
-    public float currentPhaseTimeElapsed = 0f; // reset at start of each phase.
+    private float currentPhaseTimeElapsed = 0f; // reset at start of each phase.
                                                // actively incremented in update()
     public bool isBuildPhase = false;          // updated when phase changes.
     public bool isEnemyPhase = false;          // updated when phase changes.
@@ -85,8 +85,7 @@ public class GameManager : MonoBehaviour
     private float enemyPhaseLengthSeconds = 20f;
     //-----------------------------------------------------VariablesForOtherClasses----------------------------------------------------------------//
     
-    //maybe change accessability, just temporary
-    public float materialCount = 10f;
+
 
 
     private bool tutorialEnabler = true;
@@ -104,7 +103,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    
 
     void Awake()
     {
@@ -184,7 +183,22 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    public float getCurrentTimeRemaining()
+    {
+        if (isBuildPhase)
+        {
+            return buildPhaseLengthSeconds - currentPhaseTimeElapsed;
+        }
+        else if (isEnemyPhase)
+        {
+            return enemyPhaseLengthSeconds - currentPhaseTimeElapsed;
+        }
+        else
+        {
+            Debug.Log("Error: No phase is active. - GameManager getCurrentTimeRemaining()");
+            return 0f;
+        }
+    }
 
     // Empties currentPhaseTimeElapsed, and increments currentScaling by a function of currentPhaseTimeElapsed and the difficultyScaling.
     private void updateCurrentScaling()

@@ -1,3 +1,5 @@
+//Norman Zhu 9:36PM 3/7/24. Moved material count to player build.
+
 //Worked on by: Aidan
 //Norman Zhu 8:43PM 2/27/24. Moving Tilemap, tile references to a singleton.
     //                       Adding if statement conditionals to place/delete barrier.
@@ -13,6 +15,15 @@ public class PlayerBuild : MonoBehaviour
     // [SerializeField] Tilemap tm;
     // [SerializeField] Tile tile;
     [SerializeField] PlayerMovement pm;
+
+    public int STARTING_MATERIAL_COUNT = 5;
+    //maybe change accessability, just temporary
+    public int materialCount;
+
+    private void Start()
+    {
+        materialCount = STARTING_MATERIAL_COUNT;
+    }
     void LateUpdate()
     {
         //from https://forum.unity.com/threads/how-can-i-place-a-tile-in-a-tilemap-by-script.508338/
@@ -46,7 +57,7 @@ public class PlayerBuild : MonoBehaviour
                 PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
                 PathingMap.Instance.generateFlowField(playerCell);
                 //change material count
-                GameManager.Instance.materialCount--;
+                materialCount--;
             }
             else
             {
@@ -68,7 +79,7 @@ public class PlayerBuild : MonoBehaviour
                 PathingMap.Instance.tm.SetTile(currentCell, null);
                 PathingMap.Instance.generateFlowField(playerCell);
                 //change material count
-                GameManager.Instance.materialCount++;
+                materialCount++;
             }
             else
             {

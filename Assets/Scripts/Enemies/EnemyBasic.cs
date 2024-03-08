@@ -184,9 +184,13 @@ public class EnemyBasic : MonoBehaviour
     //randomly drop materials
     private void dropMaterial()
     {
+        //if (Random.Range(0, 10) > 5)
+        //{
+        //    Instantiate(material, this.transform).transform.SetParent(null);
+        //}
         if (Random.Range(0, 10) > 5)
         {
-            Instantiate(material, this.transform).transform.SetParent(null);
+            Instantiate(material, transform.position, Quaternion.identity);
         }
     }
 }

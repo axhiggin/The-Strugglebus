@@ -1,3 +1,5 @@
+
+//Norman - 3/7/24 9:36PM - bugfix. player collision now destroys the gameobject, not the transform.
 //Worked on by: Aidan
 //Added Player Rotation: Trevor
 //Norman - 2/27/24 10:41PM - placeholder comment. Either use update or trigger to call PathingMap.Instance.generateFlowField(playerCell);
@@ -78,15 +80,16 @@ public class PlayerMovement : MonoBehaviour
 
 
     //picking up materials
-    /*private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Material"))
         {
             Debug.Log("material picked up");
-            Destroy(collision.transform);
-            GameManager.Instance.materialCount += 1;
+            //Destroy(collision.transform);
+            Destroy(collision.gameObject);
+            gameObject.GetComponent<PlayerBuild>().materialCount += 1;
             //update UI here
-
+            
         }
-    }*/
+    }
 }
