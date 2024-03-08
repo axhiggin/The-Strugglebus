@@ -74,9 +74,9 @@ public class GameManager : MonoBehaviour
                                                //     GameManager.Instance.incrementScore(int x) // increments the score by x
                                                
     [SerializeField]
-    private const float buildPhaseLengthSeconds = 20f;
+    private float buildPhaseLengthSeconds = 20f;
     [SerializeField]
-    private const float enemyPhaseLengthSeconds = 20f;
+    private float enemyPhaseLengthSeconds = 20f;
     //-----------------------------------------------------VariablesForOtherClasses----------------------------------------------------------------//
     private bool tutorialEnabler = true;
     public TextMeshProUGUI timerLabel;

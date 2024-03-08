@@ -866,7 +866,6 @@ GameObject:
   m_Component:
   - component: {fileID: 647552522}
   - component: {fileID: 647552524}
-  - component: {fileID: 647552523}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -889,26 +888,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &647552523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647552521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 414f3654d51c83647b6199141505d255, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerReference: {fileID: 0}
-  WE_WANT_TO_CLAMP_TIME_SCALING: 1
-  MAX_TIME_SCALE: 20
-  difficultyScaling: 1
-  currentPhaseTimeElapsed: 0
-  isBuildPhase: 0
-  isEnemyPhase: 0
-  gameIsOver: 0
 --- !u!114 &647552524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +908,9 @@ MonoBehaviour:
   isBuildPhase: 0
   isEnemyPhase: 0
   gameIsOver: 0
+  buildPhaseLengthSeconds: 5
+  enemyPhaseLengthSeconds: 20
+  timerLabel: {fileID: 0}
 --- !u!1 &699078045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,6 +1213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a50cb1a14d7bc49bb1ae7eb89cf314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startScene: 0
+  gameScene: 0
   gameSceneCanvas: {fileID: 0}
   mainMenuSceneCanvas: {fileID: 0}
   mainMenuSceneCanvasGameObject: {fileID: 0}
