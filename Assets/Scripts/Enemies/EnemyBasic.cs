@@ -155,7 +155,7 @@ public class EnemyBasic : MonoBehaviour
         health -= damageNumber;
         if (health <= 0)
         {
-            Destroy(this);
+            this.gameObject.SetActive(false);
             dropMaterial();
         }
     }
