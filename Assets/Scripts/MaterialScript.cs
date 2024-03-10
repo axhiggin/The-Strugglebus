@@ -9,7 +9,7 @@ public class MaterialScript : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             Debug.Log("material picked up");
-            GameManager.Instance.materialCount += 1;
+            collision.GetComponent<PlayerBuild>().materialCount += 1;
             Destroy(this.gameObject);
         }
     }
