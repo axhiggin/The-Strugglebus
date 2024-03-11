@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     public GameObject playerReference;
+    public GameObject enemyTargetReference;
     public delegate void MyEventHandler();
 
     public static event MyEventHandler StartBuildPhaseEvent;
@@ -261,7 +262,9 @@ public class GameManager : MonoBehaviour
         isBuildPhase = true;
 
         playerReference.SetActive(true);
+        enemyTargetReference.SetActive(true);
         StartBuildPhaseEvent?.Invoke();
+
     }
     private void endBuildPhase()
     {
@@ -270,6 +273,7 @@ public class GameManager : MonoBehaviour
         isBuildPhase = false;
 
         playerReference.SetActive(false);
+        //enemyTargetReference.targetCell();
         EndBuildPhaseEvent?.Invoke();
     }
     private void startEnemyPhase()
@@ -303,7 +307,7 @@ public class GameManager : MonoBehaviour
         if (scene.name == "GameScene1")
         {
             playerReference = GameObject.Find("Player");
-
+            enemyTargetReference = GameObject.Find("EnemyTarget");
             // START THE GAME!
             initializeStartOfGame();
             startBuildPhase();
