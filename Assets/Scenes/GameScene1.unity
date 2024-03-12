@@ -1076,6 +1076,7 @@ MonoBehaviour:
   MAX_DISTANCE: 100000
   tm: {fileID: 719566322}
   tile: {fileID: 11400000, guid: 3b4e3c633cb5e8047a29ae6b0eb482dd, type: 2}
+  invisTile: {fileID: 11400000, guid: f5b5a4725dc3b4a44a06c36a7d9cf834, type: 2}
   debugSquare: {fileID: 8315598176368686725, guid: 2927ae15541da38499b38195eab5947a, type: 3}
 --- !u!1 &322925202
 GameObject:

@@ -54,7 +54,9 @@ public class PathingMap : MonoBehaviour
     [SerializeField]
     public Tilemap tm;
     [SerializeField]
-    public Tile tile;
+    public Tile tile;       // barricade tile
+    [SerializeField]
+    public Tile invisTile;  // transparent tile
     [SerializeField]
     public const bool DEBUG_MODE = false;   // PathingMap debug mode prints out squares on each tile
     [SerializeField]
@@ -286,6 +288,21 @@ public class PathingMap : MonoBehaviour
         flowMapArray = visitedArray;
     }
 
+    public void setObjectContainerAt(Vector3 location, string obj)
+    {
+        Vector3Int cell = tm.WorldToCell(location);
+        objectContainer[v3_to_array_y(cell), v3_to_array_x(cell)] = obj;
+    }
+    public void setObjectContainerAt(Vector3Int location, string obj)
+    {
+        objectContainer[v3_to_array_y(location), v3_to_array_x(location)] = obj;
+    }
+    public string getObjectContainerAt(Vector3 location)
+    {
+        Vector3Int cell = tm.WorldToCell(location);
+        return objectContainer[v3_to_array_y(cell), v3_to_array_x(cell)];
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -296,6 +313,7 @@ public class PathingMap : MonoBehaviour
         // initialize flow map
         // flowMap = new Dictionary<Vector3Int, float>();
         flowMapArray = new float[rows, cols];
+        objectContainer = new string[rows, cols];
 
         //for (int i = x_lower_bound; i < x_upper_bound; i++)
         //{

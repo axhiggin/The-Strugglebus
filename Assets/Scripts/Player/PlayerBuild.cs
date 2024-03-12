@@ -76,6 +76,11 @@ public class PlayerBuild : MonoBehaviour
             // If the tile at currentCell in Tilemap tm is not null, then delete the tile and recalc flow field.
             if (PathingMap.Instance.tm.GetTile(currentCell) != null)
             {
+                Debug.Log(PathingMap.Instance.tm.GetTile(currentCell));
+                if (PathingMap.Instance.tm.GetTile(currentCell).name == "Dungeon_Tileset_v2_78")
+                {
+                    Debug.Log("Name matched Dungeon_Tileset_v2_78");
+                }
                 PathingMap.Instance.tm.SetTile(currentCell, null);
                 PathingMap.Instance.generateFlowField(playerCell);
                 //change material count
