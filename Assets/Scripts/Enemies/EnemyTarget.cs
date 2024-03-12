@@ -6,9 +6,23 @@ public class EnemyTarget : MonoBehaviour
 {
     public GameObject target;
 
+    public static EnemyTarget _instance;
+    public static EnemyTarget Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<EnemyTarget>();
+            }
+
+            return _instance;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
+
         // Subscribe to the GameManager's events
         GameManager.StartBuildPhaseEvent += OnBuildPhaseStart;
 
@@ -60,5 +74,10 @@ public class EnemyTarget : MonoBehaviour
         {
             Debug.LogWarning("Target is null. Cannot update target cell or generate flow field.");
         }
+    }
+
+    public void decrementLives(int howManyLives)
+    {
+
     }
 }

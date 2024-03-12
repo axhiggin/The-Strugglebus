@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Added code to run countdown logic - Norman Zhu 3/12/2024 11:18AM
+
 // Last edited - Norman Zhu 1:04PM 2/21/24
 
 // GameManager singleton handles win/lose conditions
