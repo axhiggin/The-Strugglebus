@@ -389,4 +389,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public int getLivesRemaining()
+    {
+        return livesRemaining;
+    }
 }

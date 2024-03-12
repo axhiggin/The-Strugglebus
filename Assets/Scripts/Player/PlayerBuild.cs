@@ -27,7 +27,7 @@ public class PlayerBuild : MonoBehaviour
     void LateUpdate()
     {
         //from https://forum.unity.com/threads/how-can-i-place-a-tile-in-a-tilemap-by-script.508338/
-        Vector3Int playerCell = PathingMap.Instance.tm.WorldToCell(transform.position);
+        Vector3Int playerCell = PathingMap.Instance.tm.WorldToCell(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z));
         Vector3Int currentCell = playerCell;
 
         //change direction of tile placement based off of movement script direction
@@ -49,7 +49,7 @@ public class PlayerBuild : MonoBehaviour
         }
 
         //places a barrier                     ADD && GameManager.Instance.materialCount > 0 when actually testing
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && materialCount>0)
         {
             // If the tile at currentCell in Tilemap tm is null, then place a tile and recalc flow field.
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
