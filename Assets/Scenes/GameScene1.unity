@@ -1225,6 +1225,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 8879711774196334462, guid: 82c7a70f3fdf8429c891e30cce2d7ded, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 7542260966780099661, guid: d13f8b8061e984978b4e95ca6ae7fb2e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2517,6 +2521,7 @@ GameObject:
   - component: {fileID: 1880271330}
   - component: {fileID: 1880271332}
   - component: {fileID: 1880271331}
+  - component: {fileID: 1880271333}
   m_Layer: 2
   m_Name: Ground
   m_TagString: Untagged
@@ -2559,7 +2564,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 453cc759091a2f248b2cfad3601c7335, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4006,6 +4011,27 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &1880271333
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880271329}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42606e039e6f20341a13ab080961f336, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2052792511
 GameObject:
   m_ObjectHideFlags: 0
