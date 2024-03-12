@@ -64,7 +64,7 @@ public class EnemyManager : MonoBehaviour
 
             Vector3 spawnLoc = new Vector3(xLoc, yLoc, 0);
             Vector3Int spawnerCell = PathingMap.Instance.tm.WorldToCell(spawnLoc);
-            PathingMap.Instance.tm.SetTile(spawnerCell, PathingMap.Instance.invisTile);
+            PathingMap.Instance.tm.SetTile(spawnerCell, PathingMap.Instance.pathable_invis_tile);
             GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
             newSpawner.SetActive(true);
             newSpawner.transform.SetParent(this.transform);

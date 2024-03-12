@@ -56,7 +56,9 @@ public class PathingMap : MonoBehaviour
     [SerializeField]
     public Tile tile;       // barricade tile
     [SerializeField]
-    public Tile invisTile;  // transparent tile
+    public Tile unpathable_invis_tile;  // transparent tile
+    [SerializeField]
+    public Tile pathable_invis_tile;  // transparent tile
     [SerializeField]
     public const bool DEBUG_MODE = false;   // PathingMap debug mode prints out squares on each tile
     [SerializeField]
