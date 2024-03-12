@@ -47,9 +47,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public int difficultyScaling = 1; // This should be a constant in the context of one game
                                       // of the game that defines the scaling curve,
-                                            // "one game" being from start to until the player wins/loses
+                                      // "one game" being from start to until the player wins/loses
                                       // But not constant.
                                       // Maybe make a difficulty setting in the start menu.
+
+    // Dirty flag for the countdown logic in Update()
+    private bool isCountingDown = false;
 
     // ==================================================== SCALING WITH TIME ==============================================================
     private float currentScaling = 1f;// DO NOT ACCESS THIS VARIABLE DIRECTLY OR CHANGE TO PUBLIC
@@ -171,6 +174,26 @@ public class GameManager : MonoBehaviour
                 startBuildPhase();
             }
         }
+
+        if (getCurrentTimeRemaining() <= 3.0f && !isCountingDown)
+        {
+            if (isBuildPhase)
+            {
+                isCountingDown = true;
+                UIManager.Instance.threeSecondUICountdown(4); // 0 indicates STart building image.
+                                                                  // to be displayed after the 3 second countdown.
+                                                                  // 4 indicates "Times Up" image to be displayed after 3s
+
+            }
+            else if (isEnemyPhase)
+            {
+                isCountingDown = true;
+                Debug.Log("enemy phase detected, calling 3 second UI countdown");
+                UIManager.Instance.threeSecondUICountdown(0); // 0 indicates STart building image.
+                                                              // to be displayed after the 3 second countdown.
+                                                              // 4 indicates "Times Up" image to be displayed after 3s
+            }
+        }
     }
 
 
@@ -246,9 +269,16 @@ public class GameManager : MonoBehaviour
         currentScaling = 1f;
         currentScore = 0;
         livesRemaining = DEFAULT_LIVES;
+        playerReference.SetActive(false); // Start player as inactive during first countdown start of game.
         resetLevelCount();
     }
 
+    private IEnumerator startAfterSeconds(float seconds)
+    {
+        Debug.Log("start after seconds invoked");
+        yield return new WaitForSeconds(seconds);
+        startBuildPhase();
+    }
 
     private void startBuildPhase()
     {
@@ -260,6 +290,7 @@ public class GameManager : MonoBehaviour
         currentScaling = currentScaling / 2.0f;
         startOfRoundCurrentScaling = currentScaling; // Track current scaling at start, to clamp later.
         isBuildPhase = true;
+        isCountingDown = false;
 
         playerReference.SetActive(true);
         enemyTargetReference.SetActive(true);
@@ -281,6 +312,7 @@ public class GameManager : MonoBehaviour
         if (DEBUG_MODE)
         Debug.Log("Starting enemy phase");
         isEnemyPhase = true;
+        isCountingDown = false;
         // Reset time.
         currentPhaseTimeElapsed = 0f;
 
@@ -310,7 +342,10 @@ public class GameManager : MonoBehaviour
             enemyTargetReference = GameObject.Find("EnemyTarget");
             // START THE GAME!
             initializeStartOfGame();
-            startBuildPhase();
+            StartCoroutine(startAfterSeconds(3.0f)); //startBuildPhase();
+            UIManager.Instance.threeSecondUICountdown(0); // 0 indicates STart building image.
+                                                          // to be displayed after the 3 second countdown.
+                                                          // 4 indicates "Times Up" image to be displayed after 3s
         }
     }
     void OnSceneUnloaded(Scene scene)

@@ -10,6 +10,8 @@ public class EnemyTarget : MonoBehaviour
     void Start()
     {
         // Subscribe to the GameManager's events
+        GameManager.StartBuildPhaseEvent += OnBuildPhaseStart;
+
         GameManager.StartEnemyPhaseEvent += OnEnemyPhaseStart;
         GameManager.EndEnemyPhaseEvent += OnEnemyPhaseEnd;
     }
@@ -17,11 +19,24 @@ public class EnemyTarget : MonoBehaviour
     private void OnDestroy()
     {
         // Unsubscribe from the GameManager's events
+        GameManager.StartBuildPhaseEvent -= OnBuildPhaseStart;
+
         GameManager.StartEnemyPhaseEvent -= OnEnemyPhaseStart;
         GameManager.EndEnemyPhaseEvent -= OnEnemyPhaseEnd;
     }
    // GameObject
 
+
+    private void OnBuildPhaseStart()
+    {
+        Debug.Log("EnemyTarget: Build phase started, moving to random location.");
+        float randomX = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound);
+        float randomY = Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_upper_bound);
+
+        randomX = Mathf.Round(randomX) + 0.5f;  // Round and add 0.5 to get center of tile.
+        randomY = Mathf.Round(randomY) + 0.5f;
+        target.transform.position = new Vector3(randomX, randomY, 0);
+    }
     private void OnEnemyPhaseStart()
     {
         // When the enemy phase starts, update the target and generate a flow field
@@ -30,9 +45,7 @@ public class EnemyTarget : MonoBehaviour
 
     private void OnEnemyPhaseEnd()
     {
-        float randomX = Random.Range(-7f, 7f);
-        float randomY = Random.Range(-3f, 3f);
-        target.transform.position = new Vector3(randomX, randomY, 0);
+
     }
 
     private void UpdateTargetAndGenerateFlowField()

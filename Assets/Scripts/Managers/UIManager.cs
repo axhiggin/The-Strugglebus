@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
     private bool oneTimeGameSceneButtonGrabberFlag;
     private bool paused = false;
 
+    // Images for 3 2 1 countdown
+    [SerializeField] private Image[] countdown;
+
     private static UIManager _instance;
 
     public static UIManager Instance
@@ -193,6 +196,35 @@ public class UIManager : MonoBehaviour
         paused= false;
     }
 
+    // Countdown for phase start
+    public void threeSecondUICountdown(int flag)
+    {
+        // Disable normal timer.
 
+        // Use large image timer.
+
+        // 3, 2, 1, GO!
+        StartCoroutine(setExclusiveActiveAfterSeconds(0, GameSceneUIObjectHolder.Instance.countdown, 3)); // 3... 
+        StartCoroutine(setExclusiveActiveAfterSeconds(1, GameSceneUIObjectHolder.Instance.countdown, 2)); // 2...
+        StartCoroutine(setExclusiveActiveAfterSeconds(2, GameSceneUIObjectHolder.Instance.countdown, 1)); // 1...
+        StartCoroutine(setExclusiveActiveAfterSeconds(3, GameSceneUIObjectHolder.Instance.countdown, flag)); // Go!
+        StartCoroutine(setExclusiveActiveAfterSeconds(5, GameSceneUIObjectHolder.Instance.countdown, -1)); // -1 flag to set no index active
+                                                                                                           // aka blank
+    }
+
+    // Sets everything in objects inactive.
+    // Sets the object at the index active.
+    private IEnumerator setExclusiveActiveAfterSeconds(float seconds, GameObject[] objects, int index)
+    {
+        yield return new WaitForSeconds(seconds);
+        foreach (GameObject obj in objects)
+        {
+            obj.SetActive(false);
+        }
+        if (index != -1)
+        {
+            objects[index].SetActive(true);
+        }
+    }
 
 }
