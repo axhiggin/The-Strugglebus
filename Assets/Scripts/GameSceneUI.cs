@@ -23,5 +23,6 @@ public class GameSceneUI : MonoBehaviour
         materialCount.text = "Materials:       x" + player.GetComponent<PlayerBuild>().materialCount;
         playerLives.text = "Lives: " + GameManager.Instance.getLivesRemaining();
         roundCount.text = "Round: " + GameManager.Instance.getLevelCount();
+        timeRemaining.text = "Lives: " + GameManager.Instance.getCurrentTimeRemaining();
     }
 }
