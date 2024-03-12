@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private bool isMoving;
     public enum direction
     {
         left, right, up, down
@@ -17,11 +18,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float moveSpeed = 5f;
     private Rigidbody2D rb;
+    private SpriteRenderer rbSprite;
     private Vector2 movement;
     public direction currDir;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rbSprite = rb.GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -29,8 +33,19 @@ public class PlayerMovement : MonoBehaviour
         //GET INPUT
         movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
+        if (movement.magnitude > 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
+        GetComponent<Animator>().SetBool("IsWalking", isMoving);
+
         //update direction of player (used for animations and building)
-        if(movement.x > 0)
+        if (movement.x > 0)
         {
             currDir = direction.right;
         }
@@ -46,7 +61,18 @@ public class PlayerMovement : MonoBehaviour
         {
             currDir = direction.down;
         }
-        //rotation (easy thanks to direction enum thanks)
+
+        if(currDir == direction.right)
+        {
+            rbSprite.flipX = false;
+        }
+        if(currDir == direction.left)
+        {
+            rbSprite.flipX = true;
+        }
+
+
+        /*//rotation (easy thanks to direction enum thanks)
         switch (currDir)
         {
             case direction.up:
@@ -61,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             case direction.right:
                 RotatePlayer(270);
                 break;
-        }
+        }*/
         
     }
 
