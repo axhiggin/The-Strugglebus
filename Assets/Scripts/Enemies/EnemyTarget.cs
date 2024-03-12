@@ -45,7 +45,7 @@ public class EnemyTarget : MonoBehaviour
     {
         Debug.Log("EnemyTarget: Build phase started, moving to random location.");
         float randomX = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound);
-        float randomY = Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_upper_bound);
+        float randomY = Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_lower_bound + 2);
 
         randomX = Mathf.Round(randomX) + 0.5f;  // Round and add 0.5 to get center of tile.
         randomY = Mathf.Round(randomY) + 0.5f;

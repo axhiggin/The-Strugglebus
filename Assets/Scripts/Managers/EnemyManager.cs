@@ -13,7 +13,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject spawnerPrefab;
     public List<GameObject> spawnerList; // Each spawner handles its own local list of enemies.
                                          //         And its own unique list of Waypoint references to map a route.
-    
+    private int spawnersPerWave = 1;     // can increment this based on currentScaling in GameManager.
     public GameObject[] enemySpritePrefab;
 
     // Instantiated, not object pooled.
@@ -55,19 +55,20 @@ public class EnemyManager : MonoBehaviour
         //{
         if (GameManager.DEBUG_MODE)
             Debug.Log("EnemyManager: Spawning spawner.");
-        // TEMP CODE. HARD CODED SPAWNER LOCATION.
-        float xLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.y_upper_bound));
-        xLoc += 0.5f;
-        float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_upper_bound));
-        yLoc += 0.5f;
+        for (int i = 0; i < spawnersPerWave; ++i)
+        {
+            float xLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.y_upper_bound));
+            xLoc += 0.5f;
+            float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_upper_bound - 2, PathingMap.Instance.y_upper_bound));
+            yLoc += 0.5f;
 
-        Vector3 spawnLoc = new Vector3(xLoc, yLoc, 0);
-        GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
-        newSpawner.SetActive(true);
-        newSpawner.transform.SetParent(this.transform);
-        
-        spawnerList.Add(newSpawner); 
+            Vector3 spawnLoc = new Vector3(xLoc, yLoc, 0);
+            GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
+            newSpawner.SetActive(true);
+            newSpawner.transform.SetParent(this.transform);
 
+            spawnerList.Add(newSpawner);
+        }
     }
 
     private void despawnSpawners()

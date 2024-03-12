@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
             else if (isEnemyPhase)
             {
                 isCountingDown = true;
-                Debug.Log("enemy phase detected, calling 3 second UI countdown");
+                //Debug.Log("enemy phase detected, calling 3 second UI countdown");
                 UIManager.Instance.threeSecondUICountdown(0); // 0 indicates STart building image.
                                                               // to be displayed after the 3 second countdown.
                                                               // 4 indicates "Times Up" image to be displayed after 3s
