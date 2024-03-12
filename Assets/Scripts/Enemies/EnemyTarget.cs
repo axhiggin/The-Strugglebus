@@ -76,8 +76,10 @@ public class EnemyTarget : MonoBehaviour
         }
     }
 
+    // why did i make this function
+    // just call directly in enemybasic
     public void decrementLives(int howManyLives)
     {
-
+        GameManager.Instance.decrementLives(howManyLives);
     }
 }

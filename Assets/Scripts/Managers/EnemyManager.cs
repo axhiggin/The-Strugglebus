@@ -42,31 +42,37 @@ public class EnemyManager : MonoBehaviour
     void Start()
     {
         // TEMP CODE. REPLACE WITH SUBSCRIBE TO GAMEMANAGER EVENT INSTEAD FOR PREP / ENEMY PHASES.
-        // Subscribe to the sceneLoaded event
-        SceneManager.sceneLoaded += spawnSpawner;
+        // Subscribe to the startbuildphaseevent in gamemanager
+        GameManager.StartBuildPhaseEvent += spawnSpawner;
+        
         spawnerList = new List<GameObject>();
     }
 
 
-    private void spawnSpawner(Scene scene, LoadSceneMode mode)
+    private void spawnSpawner()
     {
-        if (scene.name == "GameScene1")
-        {
-            if (GameManager.DEBUG_MODE)
-                Debug.Log("EnemyManager: Spawning spawner.");
-            // TEMP CODE. HARD CODED SPAWNER LOCATION.
-            Vector3 spawnLoc = new Vector3(2, 2, 0);
-            GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
-            newSpawner.SetActive(true);
-            newSpawner.transform.SetParent(this.transform);
-            spawnerList.Add(newSpawner); 
+        //if (scene.name == "GameScene1")
+        //{
+        if (GameManager.DEBUG_MODE)
+            Debug.Log("EnemyManager: Spawning spawner.");
+        // TEMP CODE. HARD CODED SPAWNER LOCATION.
+        float xLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.y_upper_bound));
+        xLoc += 0.5f;
+        float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_upper_bound));
+        yLoc += 0.5f;
 
-            spawnLoc = new Vector3(-2, 2, 0);
-            newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
-            newSpawner.SetActive(true);
-            newSpawner.transform.SetParent(this.transform);
-            spawnerList.Add(newSpawner);
-        }
+        Vector3 spawnLoc = new Vector3(xLoc, yLoc, 0);
+        GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
+        newSpawner.SetActive(true);
+        newSpawner.transform.SetParent(this.transform);
+        
+        spawnerList.Add(newSpawner); 
+
+    }
+
+    private void despawnSpawners()
+    {
+
     }
 
     // Update is called once per frame

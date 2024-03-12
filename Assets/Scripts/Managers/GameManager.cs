@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public static event MyEventHandler EndBuildPhaseEvent;
     public static event MyEventHandler StartEnemyPhaseEvent;
     public static event MyEventHandler EndEnemyPhaseEvent;
+    public static event MyEventHandler GameOverEvent;
 
     // THESE TWO VARIABLES WILL BE USED IN updateCurrentScaling().
     [SerializeField]
@@ -249,6 +250,24 @@ public class GameManager : MonoBehaviour
     public void incrementScore(int x)
     {
         currentScore += x;
+    }
+
+    public void decrementLives(int x) {         
+        livesRemaining -= x;
+        if (livesRemaining <= 0)
+        {
+            gameIsOver = true;
+            GameOverEvent?.Invoke();
+            // Call game over function.
+            // Maybe call a game over event here.
+            // Maybe call a game over event in UIManager.
+            // Maybe call a game over event in EnemySpawn.
+            // Maybe call a game over event in Player.
+            // Maybe call a game over event in EnemyTarget.
+            // Maybe call a game over event in PathingMap.
+            // Maybe call a game over event in EnemyBasic.
+            // Maybe call a game over event in PlayerBuild
+        }
     }
 
     // GETTER FUNCTION.

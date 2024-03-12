@@ -79,8 +79,11 @@ public class EnemySpawner : MonoBehaviour
         InstantiatePrefabs();
         waypointList = new List<GameObject>();
 
+        stopSpawning();
+
         GameManager.StartEnemyPhaseEvent += startSpawning;
         GameManager.EndEnemyPhaseEvent += stopSpawning;
+
     }
 
     private void OnDestroy()
