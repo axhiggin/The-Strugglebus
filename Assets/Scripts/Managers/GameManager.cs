@@ -252,7 +252,8 @@ public class GameManager : MonoBehaviour
         currentScore += x;
     }
 
-    public void decrementLives(int x) {         
+    public void decrementLives(int x) { 
+        Debug.Log("Lives before: " + livesRemaining + ". Lives after decrease: " + (livesRemaining - x));
         livesRemaining -= x;
         if (livesRemaining <= 0)
         {
