@@ -294,10 +294,6 @@ public class PathingMap : MonoBehaviour
             }
         }
 
-        // Set the flow field for the start cell
-        //flowMap = visited;
-        flowMapArray = visitedArray;
-         
         if (visitedSpawners == EnemyManager.Instance.getSpawnerCount())
         {
             visitedAllSpawners = true;
@@ -306,7 +302,10 @@ public class PathingMap : MonoBehaviour
         if (visitedAllSpawners == true)
         {
             Debug.Log("Visited all spawners with this pass of generateFlowFIeld!");
-            
+            // Set the flow field for the start cell
+            //flowMap = visited;
+            flowMapArray = visitedArray;
+
         } else
         {
             Debug.Log("COULD NOT VISIT ALL SPAWNERS WITH THIS PASS OF GENERATEFLOWFIELD!");
