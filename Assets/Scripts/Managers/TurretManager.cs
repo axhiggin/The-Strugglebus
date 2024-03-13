@@ -29,6 +29,7 @@ public class TurretManager : MonoBehaviour{
 
     private void destroyTurrets()
     {
+        Debug.Log("destroyTurrets called");
         foreach (GameObject turret in turretsList)
         {
             Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(turret.transform.position);
@@ -41,12 +42,13 @@ public class TurretManager : MonoBehaviour{
 
     private void spawnTurrets()
     {
+        Debug.Log("spawnTurrets called");
         for (int i = 0; i < numTurrets; ++i)
         {
             float xCoord = Random.Range(PathingMap.Instance.x_lower_bound + 2, PathingMap.Instance.x_upper_bound - 2) + 0.5f;
             float yCoord = Random.Range(PathingMap.Instance.y_lower_bound + 2, PathingMap.Instance.y_upper_bound - 2) + 0.5f;
             Vector3 randomTilePosition = new Vector3(xCoord, yCoord, 0);
-            Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(transform.position);
+            Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
 
             int max_rerolls = 50;
             int current_reroll = 0;

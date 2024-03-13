@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         if (Col.gameObject.transform.CompareTag("Enemy"))
         {
             Col.GetComponent<EnemyBasic>().damageEnemy(bulletDamage);
-            Debug.Log("hit enemy for: " + bulletDamage);
+            // Debug.Log("hit enemy for: " + bulletDamage);
             this.gameObject.SetActive(false);
         }
     }

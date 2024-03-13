@@ -59,7 +59,7 @@ public class EnemyManager : MonoBehaviour
         {
             float xLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.y_upper_bound));
             xLoc += 0.5f;
-            float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_upper_bound - 2, PathingMap.Instance.y_upper_bound));
+            float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound));
             yLoc += 0.5f;
 
             Vector3 spawnLoc = new Vector3(xLoc, yLoc, 0);
