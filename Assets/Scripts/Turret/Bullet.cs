@@ -8,8 +8,6 @@ public class Bullet : MonoBehaviour
     public Transform enemy;
     private Rigidbody2D rb;
 
-    public AudioSource bulletSource;
-    public AudioClip[] soundClips;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +17,6 @@ public class Bullet : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(DestroyBullet());
-        int randomClip = Random.Range(0, soundClips.Length);
-        bulletSource.PlayOneShot(soundClips[randomClip]);
     }
 
     // Update is called once per frame
@@ -47,6 +43,15 @@ public class Bullet : MonoBehaviour
                 explosion.SetActive(true);
                 explosion.transform.position = Col.transform.position;
                 SpriteFxManager.Instance.deactivateSpriteAfterDelay(SpriteFxManager.Instance.explosionDurations[explosionType], explosion);
+            }
+            GameObject explosionAudio = AudioFxManager.Instance.GetAudioObject();
+            if (explosionAudio != null)
+            {
+                explosionAudio.SetActive(true);
+                explosionAudio.transform.position = Col.transform.position;
+                int audioClip = Random.Range(0, AudioFxManager.Instance.explosionSounds.Length);
+                explosionAudio.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.explosionSounds[audioClip]);
+                AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.explosionDuration[explosionType], explosionAudio);
             }
         }
     }

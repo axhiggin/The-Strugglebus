@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// Norman Zhu 3/13/2024 3:27PM - laser firing sou nd effects
+
 // Last edited - Guy Haiby 12:11 AM 3/10/2024, animations controller, shooting logic
 public class Turret : MonoBehaviour
 {
@@ -67,6 +69,16 @@ public class Turret : MonoBehaviour
         BulletIns.transform.rotation = Quaternion.identity;
         BulletIns.SetActive(true);
         BulletIns.GetComponent<Bullet>().enemy = target.transform;
+
+        GameObject laserSoundSource = AudioFxManager.Instance.GetAudioObject();
+        if (laserSoundSource != null)
+        {
+            laserSoundSource.SetActive(true);
+            laserSoundSource.transform.position = transform.position;
+            int audioClip = Random.Range(0, AudioFxManager.Instance.laserSounds.Length);
+            laserSoundSource.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.laserSounds[audioClip]);
+            AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.laserDuration[audioClip], laserSoundSource);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
