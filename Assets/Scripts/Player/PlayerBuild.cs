@@ -16,7 +16,7 @@ public class PlayerBuild : MonoBehaviour
     // [SerializeField] Tile tile;
     [SerializeField] PlayerMovement pm;
 
-    public int STARTING_MATERIAL_COUNT = 5;
+    public int STARTING_MATERIAL_COUNT = 15;
     //maybe change accessability, just temporary
     public int materialCount;
 
@@ -78,12 +78,13 @@ public class PlayerBuild : MonoBehaviour
             {
                 Debug.Log("Name matched Dungeon_Tileset_v2_78");
                 PathingMap.Instance.tm.SetTile(currentCell, null);
-                PathingMap.Instance.generateFlowField(playerCell);
                 //change material count
                 materialCount++;
             }
             else
             {
+                if (PathingMap.Instance.tm.GetTile(currentCell) != null)
+                    Debug.Log("Tile: " + PathingMap.Instance.tm.GetTile(currentCell).name +  " at " + currentCell + " is not a barrier tile.");
                 // Otherwise, don't recalculate flow field, because nothing was deleted.
 
                 // Play sound effect / particles here maybe.

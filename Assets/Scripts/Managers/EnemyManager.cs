@@ -78,9 +78,31 @@ public class EnemyManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public int getSpawnerCount()
     {
-        
+        return spawnerList.Count;
+    }
+
+    public bool vector3_matches_one_spawner(Vector3Int coordinate)
+    {
+        bool matches = false;
+        foreach (GameObject spawner in spawnerList)
+        {
+            Vector3 spawnerLoc = spawner.transform.position;
+            if (PathingMap.Instance.tm.WorldToCell(spawnerLoc) == coordinate)
+            {
+                Debug.Log("provided coordinate matched with a spawner - EnemyManager()");
+                matches = true;
+                break;
+            }
+        }
+        return matches;
+    }
+
+
+
+    private void Update()
+    {
+
     }
 }

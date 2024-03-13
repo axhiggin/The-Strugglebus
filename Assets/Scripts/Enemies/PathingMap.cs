@@ -174,7 +174,7 @@ public class PathingMap : MonoBehaviour
     }
 
     // Use breadth first search from start to generate a flow field for the index of flowMaps
-    public void generateFlowField(Vector3Int start)
+    public bool generateFlowField(Vector3Int start)
     {
         if (DEBUG_MODE)
         {
@@ -206,9 +206,18 @@ public class PathingMap : MonoBehaviour
         visitedArray[v3_to_array_y(start), v3_to_array_x(start)] = 0;
         //visitedFlag[v3_to_array_y(start), v3_to_array_x(start)] = true;
 
+        bool visitedAllSpawners = false;
+        int visitedSpawners = 0;
+
         while (queue.Count > 0)
         {
             Vector3Int current = queue.Dequeue();
+
+            if (EnemyManager.Instance.vector3_matches_one_spawner(current))
+            {
+                visitedSpawners++;
+            }
+
             // Grab distance as current node distance.
             float distance = visitedArray[v3_to_array_y(current), v3_to_array_x(current)];
 
@@ -227,7 +236,7 @@ public class PathingMap : MonoBehaviour
                     if (visitedArray[v3_to_array_y(neighbor), v3_to_array_x(neighbor)] == -1)   // using -1 as a signifier for unvisited tiles.
                     {
                         // Ensure the neighbor is empty of other tiles.
-                        if (tm.GetTile(neighbor) == null)
+                        if (tileIsPathable(neighbor))// if (tm.GetTile(neighbor) == null)
                         {   
                             // add it to the queue and the visited dictionary
                             queue.Enqueue(neighbor);
@@ -263,7 +272,7 @@ public class PathingMap : MonoBehaviour
                     if (visitedArray[v3_to_array_y(neighbor), v3_to_array_x(neighbor)] == -1)   // using -1 as a signifier for unvisited tiles.
                     {
                         // Ensure the neighbor is empty of other tiles.
-                        if (tm.GetTile(neighbor) == null)
+                        if (tileIsPathable(neighbor)) // if (tm.GetTile(neighbor) == null)
                         {
                             // add it to the queue and the visited dictionary
                             queue.Enqueue(neighbor);
@@ -288,8 +297,40 @@ public class PathingMap : MonoBehaviour
         // Set the flow field for the start cell
         //flowMap = visited;
         flowMapArray = visitedArray;
+         
+        if (visitedSpawners == EnemyManager.Instance.getSpawnerCount())
+        {
+            visitedAllSpawners = true;
+        }
+
+        if (visitedAllSpawners == true)
+        {
+            Debug.Log("Visited all spawners with this pass of generateFlowFIeld!");
+            
+        } else
+        {
+            Debug.Log("COULD NOT VISIT ALL SPAWNERS WITH THIS PASS OF GENERATEFLOWFIELD!");
+            Debug.Log("SPAWNERS THAT EXIST: " + EnemyManager.Instance.getSpawnerCount());
+            Debug.Log("SPAWNERS VISITED SUCCESSFULLY: " + visitedSpawners);
+        }
+        return visitedAllSpawners;
     }
 
+    private bool tileIsPathable(Vector3Int tileCell)
+    {
+        if (tm.GetTile(tileCell) == null)
+        {
+            return true;
+        }
+        if (tm.GetTile(tileCell).name != "unpathable_invis" && tm.GetTile(tileCell).name != "Dungeon_Tileset_v2_78")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } 
 
     // Start is called before the first frame update
     void Start()

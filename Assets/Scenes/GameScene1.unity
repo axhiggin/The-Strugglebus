@@ -2329,7 +2329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pm: {fileID: 1445747377}
-  STARTING_MATERIAL_COUNT: 5
+  STARTING_MATERIAL_COUNT: 15
   materialCount: 0
 --- !u!95 &1445747382
 Animator:

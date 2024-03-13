@@ -24,6 +24,7 @@ public class TurretManager : MonoBehaviour{
         GameManager.StartBuildPhaseEvent += spawnTurrets;
         GameManager.EndEnemyPhaseEvent += destroyTurrets;
         turretsList = new List<GameObject>();
+        turretsList.Clear();
     }
 
     private void destroyTurrets()
@@ -34,6 +35,8 @@ public class TurretManager : MonoBehaviour{
             PathingMap.Instance.tm.SetTile(tilePosInt, null);
             Destroy(turret);
         }
+
+        turretsList.Clear();
     }
 
     private void spawnTurrets()
@@ -64,6 +67,7 @@ public class TurretManager : MonoBehaviour{
                 continue;
             } else
             {
+                Debug.Log("Spawning turret");
                 GameObject newTurret = Instantiate(turretPrefab, randomTilePosition, Quaternion.identity);
                 PathingMap.Instance.tm.SetTile(tilePosInt, PathingMap.Instance.unpathable_invis_tile);
                 turretsList.Add(newTurret);

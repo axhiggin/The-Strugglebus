@@ -901,16 +901,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReference: {fileID: 0}
+  enemyTargetReference: {fileID: 0}
   WE_WANT_TO_CLAMP_TIME_SCALING: 1
   MAX_TIME_SCALE: 20
   difficultyScaling: 1
-  currentPhaseTimeElapsed: 0
   isBuildPhase: 0
   isEnemyPhase: 0
   gameIsOver: 0
-  buildPhaseLengthSeconds: 5
+  buildPhaseLengthSeconds: 10
   enemyPhaseLengthSeconds: 20
-  materialCount: 10
   timerLabel: {fileID: 0}
 --- !u!1 &699078045
 GameObject:
@@ -1222,6 +1221,7 @@ MonoBehaviour:
   timerLabel: {fileID: 0}
   mainMenuSceneButtons: []
   gameSceneButtons: []
+  countdown: []
 --- !u!1 &1452510128
 GameObject:
   m_ObjectHideFlags: 0

@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Error: No phase is active. - GameManager getCurrentTimeRemaining()");
+            // Debug.Log("Error: No phase is active. - GameManager getCurrentTimeRemaining()");
             return 0f;
         }
     }
