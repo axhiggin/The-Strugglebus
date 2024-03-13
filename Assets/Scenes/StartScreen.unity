@@ -123,6 +123,113 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &158484646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 158484647}
+  - component: {fileID: 158484650}
+  - component: {fileID: 158484649}
+  - component: {fileID: 158484648}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &158484647
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158484646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 603059407}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 4.8455, y: 149.6156}
+  m_SizeDelta: {x: 333.2313, y: 333.2313}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &158484648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158484646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f767c26bbe89a49bbd786f4ac6e147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: -1466233150, guid: 973d57b25726e314b84251dbc710062c, type: 3}
+  - {fileID: 1760432669, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: -334372357, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 1103753331, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 1006882100, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: -2032797264, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 1687519050, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: -2090820421, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 1399775514, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 144807584, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 165058242, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 2046507412, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  - {fileID: 1081625036, guid: fd9d3ea4add9efe47bf192047d22bf7c, type: 3}
+  - {fileID: -1474879400, guid: fd9d3ea4add9efe47bf192047d22bf7c, type: 3}
+  - {fileID: 403648781, guid: fd9d3ea4add9efe47bf192047d22bf7c, type: 3}
+  - {fileID: 729881856, guid: fd9d3ea4add9efe47bf192047d22bf7c, type: 3}
+  fps: 0.1
+--- !u!114 &158484649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158484646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 763225797, guid: 6a65b9ea0c4ea2b49a1e5c30f097ed6d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &158484650
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158484646}
+  m_CullTransparentMesh: 1
 --- !u!1 &174154344
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +951,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 158484647}
   - {fileID: 227652126}
   - {fileID: 1452510129}
   - {fileID: 174154345}

@@ -636,6 +636,7 @@ GameObject:
   - component: {fileID: 1305601711}
   - component: {fileID: 1305601713}
   - component: {fileID: 1305601712}
+  - component: {fileID: 1305601714}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -683,7 +684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1733505556, guid: 7488375625a570e468614faa15ffced9, type: 3}
+  m_Sprite: {fileID: 107417872, guid: 7488375625a570e468614faa15ffced9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -701,6 +702,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305601710}
   m_CullTransparentMesh: 1
+--- !u!114 &1305601714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305601710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f767c26bbe89a49bbd786f4ac6e147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: 107417872, guid: 7488375625a570e468614faa15ffced9, type: 3}
+  - {fileID: 51620152, guid: 7488375625a570e468614faa15ffced9, type: 3}
+  - {fileID: 1438871741, guid: 7488375625a570e468614faa15ffced9, type: 3}
+  - {fileID: -1733505556, guid: 7488375625a570e468614faa15ffced9, type: 3}
+  - {fileID: -1768474473, guid: 7488375625a570e468614faa15ffced9, type: 3}
+  fps: 0.25
 --- !u!1 &1369797136
 GameObject:
   m_ObjectHideFlags: 0
