@@ -12,6 +12,7 @@ public class TurretManager : MonoBehaviour{
 
     [SerializeField] GameObject turretPrefab; //turret prefab to spawn
     [SerializeField] int numTurrets;
+    [SerializeField] int MAX_TURRETS;
 
     private List<GameObject> turretsList;
 
@@ -43,6 +44,10 @@ public class TurretManager : MonoBehaviour{
     private void spawnTurrets()
     {
         Debug.Log("spawnTurrets called");
+        if (turretsList.Count >= MAX_TURRETS)
+        {
+            return;
+        }
         for (int i = 0; i < numTurrets; ++i)
         {
             float xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
