@@ -318,6 +318,8 @@ public class GameManager : MonoBehaviour
         enemyTargetReference.SetActive(true);
         StartBuildPhaseEvent?.Invoke();
 
+        PathingMap.Instance.generateFlowFieldToEndpoint();
+
     }
     private void endBuildPhase()
     {
