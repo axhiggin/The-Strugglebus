@@ -362,6 +362,7 @@ public class GameManager : MonoBehaviour
         // if scene.name is GameScene1, set the playerReference
         if (scene.name == "GameScene1")
         {
+            gameIsOver = false;
             playerReference = GameObject.Find("Player");
             enemyTargetReference = GameObject.Find("EnemyTarget");
             // START THE GAME!
