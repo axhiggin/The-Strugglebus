@@ -13,8 +13,8 @@ public class AudioFxManager : MonoBehaviour
     private List<GameObject> objectPool;
     public int audioObjectsToPool = 20;
 
-    public AudioClip materialDropSound;
-    public float materialDropDuration;
+    public AudioClip[] materialDropSound;
+    public float[] materialDropDuration;
 
     public AudioClip errorSound;
     public float errorDuration;
