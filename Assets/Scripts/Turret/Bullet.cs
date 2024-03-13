@@ -7,6 +7,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] float bulletSpeed = 20.0f, bulletDamage = 5.0f, bulletDuration = 1.0f;
     public Transform enemy;
     private Rigidbody2D rb;
+
+    public AudioSource bulletSource;
+    public AudioClip[] soundClips;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,8 @@ public class Bullet : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(DestroyBullet());
+        int randomClip = Random.Range(0, soundClips.Length);
+        bulletSource.PlayOneShot(soundClips[randomClip]);
     }
 
     // Update is called once per frame
