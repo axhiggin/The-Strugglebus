@@ -1,4 +1,6 @@
+//Norman Zhu 7:00PM 3/12/24. enemyTarget public field. Check pathing before build.
 //Norman Zhu 9:36PM 3/7/24. Moved material count to player build.
+
 
 //Worked on by: Aidan
 //Norman Zhu 8:43PM 2/27/24. Moving Tilemap, tile references to a singleton.
@@ -20,9 +22,15 @@ public class PlayerBuild : MonoBehaviour
     //maybe change accessability, just temporary
     public int materialCount;
 
+    public GameObject enemyTarget;
+
     private void Start()
     {
         materialCount = STARTING_MATERIAL_COUNT;
+        if (enemyTarget == null)
+        {
+            Debug.Log("ERROR: PlayerBuild.cs: enemyTarget is null. Please assign in inspector.");
+        }
     }
     void LateUpdate()
     {
@@ -54,7 +62,8 @@ public class PlayerBuild : MonoBehaviour
             // If the tile at currentCell in Tilemap tm is null, then place a tile and recalc flow field.
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
             {
-                if (PathingMap.Instance.generateFlowField(playerCell) == true)
+                Vector3Int targetCell = PathingMap.Instance.tm.WorldToCell(enemyTarget.transform.position);
+                if (PathingMap.Instance.generateFlowField(targetCell) == true)
                 {
                     PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
 

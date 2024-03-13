@@ -2499,6 +2499,7 @@ MonoBehaviour:
   pm: {fileID: 1445747377}
   STARTING_MATERIAL_COUNT: 15
   materialCount: 0
+  enemyTarget: {fileID: 2052792511}
 --- !u!95 &1445747382
 Animator:
   serializedVersion: 5
