@@ -34,21 +34,19 @@ public class UIManager : MonoBehaviour
 
     private static UIManager _instance;
 
-    public static UIManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<UIManager>();
-            }
+    public static UIManager Instance { get { return _instance; } }
 
-            return _instance;
-        }
-    }
 
     void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
         DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
@@ -76,6 +74,8 @@ public class UIManager : MonoBehaviour
             //sets a flag for scene specific interactions such as pressing esc and getting a pause menu, or quitting
             startScene = false;
             gameScene = true;
+            //ends the button grabber if statement after one iteration
+            oneTimeMainMenuButtonGrabberFlag = false;
         }
 
         
@@ -132,7 +132,7 @@ public class UIManager : MonoBehaviour
     //To test gamescene more quickly currently start automatically launches game scene
     public void ClickedStartButton()
     {
-        SceneManager.LoadScene("GameScene1");
+        //SceneManager.LoadScene("GameScene1");
     }
     //Displays Options sub-menu
 

@@ -194,6 +194,16 @@ public class EnemyBasic : MonoBehaviour
             Col.GetComponent<EnemyTarget>().decrementLives(how_many_lives_to_lose);
             // Debug.Log("enemy entered enemyTarget, subtracting lives: " + how_many_lives_to_lose);
             this.gameObject.SetActive(false);
+
+            // PLACEHOLDER
+            int explosionType = 5;
+            GameObject explosion = SpriteFxManager.Instance.GetPooledExplosion(explosionType);
+            if (explosion != null)
+            {
+                explosion.SetActive(true);
+                explosion.transform.position = Col.transform.position;
+                SpriteFxManager.Instance.deactivateSpriteAfterDelay(SpriteFxManager.Instance.explosionDurations[explosionType], explosion);
+            }
         }
     }
 }
