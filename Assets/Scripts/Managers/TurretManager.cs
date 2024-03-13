@@ -45,7 +45,7 @@ public class TurretManager : MonoBehaviour{
         Debug.Log("spawnTurrets called");
         for (int i = 0; i < numTurrets; ++i)
         {
-            float xCoord = Random.Range(PathingMap.Instance.x_lower_bound + 2, PathingMap.Instance.x_upper_bound - 2) + 0.5f;
+            float xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
             float yCoord = Random.Range(PathingMap.Instance.y_lower_bound + 2, PathingMap.Instance.y_upper_bound - 2) + 0.5f;
             Vector3 randomTilePosition = new Vector3(xCoord, yCoord, 0);
             Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
@@ -59,10 +59,10 @@ public class TurretManager : MonoBehaviour{
                     break;
                 if (current_reroll >= max_rerolls)
                     break;
-                xCoord = Random.Range(PathingMap.Instance.x_lower_bound + 2, PathingMap.Instance.x_upper_bound - 2) + 0.5f;
+                xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
                 yCoord = Random.Range(PathingMap.Instance.y_lower_bound + 2, PathingMap.Instance.y_upper_bound - 2) + 0.5f;
                 randomTilePosition = new Vector3(xCoord, yCoord, 0);
-                tilePosInt = PathingMap.Instance.tm.WorldToCell(transform.position);
+                tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
                 current_reroll++;
             }
 
