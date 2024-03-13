@@ -73,6 +73,8 @@ public class EnemySpawner : MonoBehaviour
         return false;
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,13 +96,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void startSpawning()
     {
-        Debug.Log("Spawner.cs/startSpawning() was successfully invoked through event system.");
+        // Debug.Log("Spawner.cs/startSpawning() was successfully invoked through event system.");
         shouldSpawn = true;
     }
 
     private void stopSpawning()
     {
-        Debug.Log("Spawner.cs/stopSpawning() was successfully invoked through event system.");
+        // Debug.Log("Spawner.cs/stopSpawning() was successfully invoked through event system.");
         shouldSpawn = false;
     }
 

@@ -59,7 +59,7 @@ public class EnemyManager : MonoBehaviour
         {
             float xLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.y_upper_bound));
             xLoc += 0.5f;
-            float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_upper_bound - 2, PathingMap.Instance.y_upper_bound));
+            float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound));
             yLoc += 0.5f;
 
             Vector3 spawnLoc = new Vector3(xLoc, yLoc, 0);
@@ -78,9 +78,31 @@ public class EnemyManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public int getSpawnerCount()
     {
-        
+        return spawnerList.Count;
+    }
+
+    public bool vector3_matches_one_spawner(Vector3Int coordinate)
+    {
+        bool matches = false;
+        foreach (GameObject spawner in spawnerList)
+        {
+            Vector3 spawnerLoc = spawner.transform.position;
+            if (PathingMap.Instance.tm.WorldToCell(spawnerLoc) == coordinate)
+            {
+                Debug.Log("provided coordinate matched with a spawner - EnemyManager()");
+                matches = true;
+                break;
+            }
+        }
+        return matches;
+    }
+
+
+
+    private void Update()
+    {
+
     }
 }

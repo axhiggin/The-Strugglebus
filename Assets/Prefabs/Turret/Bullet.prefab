@@ -162,7 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ab86a662aec4def96731e0ab137dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 5
+  bulletSpeed: 20
+  bulletDamage: 5
+  bulletDuration: 1
   enemy: {fileID: 0}
 --- !u!95 &-8656345121689851829
 Animator:

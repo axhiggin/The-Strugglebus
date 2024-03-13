@@ -178,6 +178,7 @@ public class EnemyBasic : MonoBehaviour
         {
             dropMaterial();
             gameObject.SetActive(false);
+            GameManager.Instance.totalZombiesKilled++;
         }
     }
 
@@ -195,12 +196,12 @@ public class EnemyBasic : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D Col)
     {
-        Debug.Log("enemy collided with: " + Col.gameObject.tag);
+        //Debug.Log("enemy collided with: " + Col.gameObject.tag);
         if (Col.gameObject.CompareTag("EnemyTarget"))
         {
             int how_many_lives_to_lose = 1;
             Col.GetComponent<EnemyTarget>().decrementLives(how_many_lives_to_lose);
-            Debug.Log("enemy entered enemyTarget, subtracting lives: " + how_many_lives_to_lose);
+            // Debug.Log("enemy entered enemyTarget, subtracting lives: " + how_many_lives_to_lose);
             this.gameObject.SetActive(false);
         }
     }

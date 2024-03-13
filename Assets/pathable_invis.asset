@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: pathable_invis
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -504933013, guid: 4fc89b48a7634a64f950937d36b14cd0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0.2466259, b: 1, a: 0.53333336}
   m_Transform:
     e00: 1
     e01: 0

@@ -1,4 +1,6 @@
+//Norman Zhu 7:00PM 3/12/24. enemyTarget public field. Check pathing before build.
 //Norman Zhu 9:36PM 3/7/24. Moved material count to player build.
+
 
 //Worked on by: Aidan
 //Norman Zhu 8:43PM 2/27/24. Moving Tilemap, tile references to a singleton.
@@ -16,13 +18,19 @@ public class PlayerBuild : MonoBehaviour
     // [SerializeField] Tile tile;
     [SerializeField] PlayerMovement pm;
 
-    public int STARTING_MATERIAL_COUNT = 5;
+    public int STARTING_MATERIAL_COUNT = 15;
     //maybe change accessability, just temporary
     public int materialCount;
+
+    public GameObject enemyTarget;
 
     private void Start()
     {
         materialCount = STARTING_MATERIAL_COUNT;
+        if (enemyTarget == null)
+        {
+            Debug.Log("ERROR: PlayerBuild.cs: enemyTarget is null. Please assign in inspector.");
+        }
     }
     void LateUpdate()
     {
@@ -55,9 +63,17 @@ public class PlayerBuild : MonoBehaviour
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
             {
                 PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
-                PathingMap.Instance.generateFlowField(playerCell);
+
                 //change material count
                 materialCount--;
+
+                Vector3Int targetCell = PathingMap.Instance.tm.WorldToCell(enemyTarget.transform.position);
+                if (PathingMap.Instance.generateFlowField(targetCell) == false)
+                {
+                    Debug.LogWarning("PlayerBuild: Failed to path to all enemySpawners, removing last created barricade.");
+                    PathingMap.Instance.tm.SetTile(currentCell, null);
+                    materialCount++;
+                }
             }
             else
             {
@@ -78,12 +94,13 @@ public class PlayerBuild : MonoBehaviour
             {
                 Debug.Log("Name matched Dungeon_Tileset_v2_78");
                 PathingMap.Instance.tm.SetTile(currentCell, null);
-                PathingMap.Instance.generateFlowField(playerCell);
                 //change material count
                 materialCount++;
             }
             else
             {
+                if (PathingMap.Instance.tm.GetTile(currentCell) != null)
+                    Debug.Log("Tile: " + PathingMap.Instance.tm.GetTile(currentCell).name +  " at " + currentCell + " is not a barrier tile.");
                 // Otherwise, don't recalculate flow field, because nothing was deleted.
 
                 // Play sound effect / particles here maybe.
@@ -91,7 +108,7 @@ public class PlayerBuild : MonoBehaviour
                 if (GameManager.DEBUG_MODE)
                     Debug.Log("No tile to delete at " + currentCell);
             }
-            PathingMap.Instance.tm.SetTile(currentCell, null);
+            // PathingMap.Instance.tm.SetTile(currentCell, null);
         }
     }
 
