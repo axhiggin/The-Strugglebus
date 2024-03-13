@@ -908,6 +908,7 @@ MonoBehaviour:
   isBuildPhase: 0
   isEnemyPhase: 0
   gameIsOver: 0
+  totalZombiesKilled: 0
   buildPhaseLengthSeconds: 10
   enemyPhaseLengthSeconds: 20
   timerLabel: {fileID: 0}
@@ -955,6 +956,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad69221576c2044e9f062472b03a34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSceneMusic: {fileID: 8300000, guid: b969e5e002330b895965869087c77ef9, type: 3}
+  startSceneMusic: {fileID: 8300000, guid: bef1f83c8e67eb04c816e4ab4c58130d, type: 3}
 --- !u!1 &749437902
 GameObject:
   m_ObjectHideFlags: 0
