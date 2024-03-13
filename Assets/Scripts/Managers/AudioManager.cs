@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class AudioManager : MonoBehaviour
 {
     public AudioClip gameSceneMusic;
-    public AudioClip startSceneMusic;
+    public AudioClip startScreenMusic;
+    public AudioClip gameOverMusic;
     private AudioSource audioSource;
 
     private static AudioManager _instance;
@@ -18,39 +19,45 @@ public class AudioManager : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            _instance = this;
-        }
+        _instance = this;
         DontDestroyOnLoad(gameObject);
-        audioSource = gameObject.AddComponent<AudioSource>();
 
-        // Subscribe to the sceneLoaded event
+        audioSource = gameObject.AddComponent<AudioSource>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        PlayAudioForScene();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        playAudioForScene();
+        PlayAudioForScene();
     }
-
-    void playAudioForScene(){
-        Scene scene = SceneManager.GetActiveScene();
-         switch (scene.name)
-        {
-            case "StartScene":
-                PlayAudioClip(startSceneMusic);
-                break;
-            case "GameScene1":
-                PlayAudioClip(gameSceneMusic);
-                break;
-            default:
-                // Optional: stop playing audio or handle other scenes
-                break;
-        }
+void PlayAudioForScene()
+{
+    Scene scene = SceneManager.GetActiveScene();
+    Debug.Log(scene.name);
+    switch (scene.name)
+    {
+        case "StartScreen":
+            Debug.Log("Start Scene Music should play now: " + startScreenMusic.name);
+            PlayAudioClip(startScreenMusic);
+            break;
+        case "GameScene1":
+            Debug.Log("Game Scene 1 Music should play now: " + gameSceneMusic.name);
+            PlayAudioClip(gameSceneMusic);
+            break;
+        case "GameOverScene":
+            Debug.Log("Game Scene 1 Music should play now: " + gameOverMusic.name);
+            PlayAudioClip(gameOverMusic);
+            break;
+        default:
+            Debug.Log("No matching scene found for audio playback.");
+            // Optional: stop playing audio or handle other scenes
+            break;
     }
+}
 
     void PlayAudioClip(AudioClip clip)
     {
@@ -59,16 +66,18 @@ public class AudioManager : MonoBehaviour
             audioSource.Stop();
         }
         audioSource.clip = clip;
+        audioSource.loop = true;
         audioSource.Play();
     }
 
     void OnDestroy()
     {
-        // Unsubscribe to ensure no memory leaks
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void start(){
-        playAudioForScene();
+    // Renamed from start() to Start() to follow C# naming conventions
+    void Start()
+    {
+        //PlayAudioForScene();
     }
 }

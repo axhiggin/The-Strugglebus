@@ -970,7 +970,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSceneMusic: {fileID: 8300000, guid: b969e5e002330b895965869087c77ef9, type: 3}
-  startSceneMusic: {fileID: 8300000, guid: bef1f83c8e67eb04c816e4ab4c58130d, type: 3}
+  startScreenMusic: {fileID: 8300000, guid: bef1f83c8e67eb04c816e4ab4c58130d, type: 3}
+  gameOverMusic: {fileID: 8300000, guid: 3b73ea39b69aaef4293384ba80b66ac9, type: 3}
 --- !u!1 &749437902
 GameObject:
   m_ObjectHideFlags: 0
