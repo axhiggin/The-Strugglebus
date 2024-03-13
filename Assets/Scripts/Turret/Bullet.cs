@@ -36,8 +36,11 @@ public class Bullet : MonoBehaviour
             // Debug.Log("hit enemy for: " + bulletDamage);
             this.gameObject.SetActive(false);
             GameObject explosion = SpriteFxManager.Instance.GetPooledExplosion(0);
-            explosion.SetActive(true);
-            explosion.transform.position = Col.transform.position;
+            if (explosion != null)
+            {
+                explosion.SetActive(true);
+                explosion.transform.position = Col.transform.position;
+            }
         }
     }
 
