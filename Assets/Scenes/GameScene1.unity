@@ -1656,6 +1656,72 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!1 &646852974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 646852976}
+  - component: {fileID: 646852975}
+  m_Layer: 0
+  m_Name: AudioFxManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &646852975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646852974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7113ab6843bef4baca3a58d4b15ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioFxObjectPrefab: {fileID: 9166851154986552720, guid: 3dbc3fef3e64e5248b0edf00728bd959, type: 3}
+  audioObjectsToPool: 10
+  bigExplosion: {fileID: 8300000, guid: 6dcfdaf61c90f9d4798475c42a7f483b, type: 3}
+  bigExplosionDuration: 3
+  explosionSounds:
+  - {fileID: 8300000, guid: bc9ad6a4f8799474799bb895df42fe3e, type: 3}
+  - {fileID: 8300000, guid: 14697615929fdfc4697179572723c5bc, type: 3}
+  - {fileID: 8300000, guid: d877546a74c93484187648799591279d, type: 3}
+  explosionDuration:
+  - 1
+  - 1
+  - 1
+  laserSounds:
+  - {fileID: 8300000, guid: 852869e4ea547da459f3c0d3f6d96199, type: 3}
+  - {fileID: 8300000, guid: 62b0cddd59a39704bb4ca5f386bb99c4, type: 3}
+  - {fileID: 8300000, guid: a2ab7967f8aff634998ac5bb66d3e7b2, type: 3}
+  laserDuration:
+  - 1
+  - 1
+  - 1
+  buildingSounds: []
+  buildingDuration: []
+--- !u!4 &646852976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646852974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9059995, y: -0.731135, z: 0.10286693}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &690900839
 GameObject:
   m_ObjectHideFlags: 0
