@@ -60,10 +60,11 @@ public class PlayerBuild : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && materialCount>0)
         {
             // If the tile at currentCell in Tilemap tm is null, then place a tile and recalc flow field.
+            Debug.Log(PathingMap.Instance.tm.GetTile(currentCell));
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
             {
                 PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
-
+                
                 //change material count
                 materialCount--;
 

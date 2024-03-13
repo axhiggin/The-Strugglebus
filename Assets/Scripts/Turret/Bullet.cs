@@ -21,12 +21,11 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 direction = enemy.position - transform.position;
-        rb.velocity = direction.normalized * bulletSpeed;
-        this.gameObject.transform.right = direction;
-        if(this.rb.velocity.magnitude == 0)
+        if(enemy.gameObject.activeSelf)
         {
-            gameObject.SetActive(false);
+            Vector2 direction = enemy.position - transform.position;
+            rb.velocity = direction.normalized * bulletSpeed;
+            this.gameObject.transform.right = direction;
         }
     }
 
