@@ -10,6 +10,7 @@ public class GameOverSceneUI : MonoBehaviour
     private Canvas canvas;
     private TextMeshProUGUI roundCount, zombiesKilled;
     private Button btn;
+
     void Start()
     {
         canvas = GetComponent<Canvas>();
@@ -21,16 +22,16 @@ public class GameOverSceneUI : MonoBehaviour
         zombiesKilled.text = "You killed " + GameManager.Instance.totalZombiesKilled + " zombies";
 
         canvas.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(goToMenuScene);
-
+        
         canvas.transform.GetChild(5).GetComponent<Button>().onClick.AddListener(goToGameScene);
     }
     
-    void goToMenuScene()
+    public void goToMenuScene()
     {
         SceneManager.LoadScene("StartScreen");
     }
-    void goToGameScene()
+    public void goToGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScene1");
     }
 }
