@@ -1687,6 +1687,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioFxObjectPrefab: {fileID: 9166851154986552720, guid: 3dbc3fef3e64e5248b0edf00728bd959, type: 3}
   audioObjectsToPool: 10
+  materialDropSound:
+  - {fileID: 8300000, guid: d220b55634c9b8a4e972c5d1cfbb27db, type: 3}
+  - {fileID: 8300000, guid: 837683576aa7d5141a87abd9bad15bf0, type: 3}
+  materialDropDuration:
+  - 1
+  - 1
   errorSound: {fileID: 8300000, guid: 96fe38dd396861a4ca34a0848c1184d9, type: 3}
   errorDuration: 0.8
   loseLifeSound: {fileID: 8300000, guid: fa7b1df6b27733e49823d930076cf305, type: 3}
