@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour
                                                //     GameManager.Instance.incrementScore(int x) // increments the score by x
     public const int DEFAULT_LIVES = 10;
     private int livesRemaining = 0;
+
+    public int totalZombiesKilled = 0;
     // Default values set here. 
     // SerializeField means you can change in inspector.
     // Inspector values will override values here.

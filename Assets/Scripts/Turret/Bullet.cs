@@ -20,6 +20,10 @@ public class Bullet : MonoBehaviour
         Vector2 direction = enemy.position - transform.position;
         rb.velocity = direction.normalized * bulletSpeed;
         this.gameObject.transform.right = direction;
+        if(this.rb.velocity.magnitude == 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D Col){

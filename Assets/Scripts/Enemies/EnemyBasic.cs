@@ -178,6 +178,7 @@ public class EnemyBasic : MonoBehaviour
         {
             dropMaterial();
             gameObject.SetActive(false);
+            GameManager.Instance.totalZombiesKilled++;
         }
     }
 
