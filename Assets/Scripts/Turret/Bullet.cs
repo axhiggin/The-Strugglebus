@@ -35,11 +35,13 @@ public class Bullet : MonoBehaviour
             Col.GetComponent<EnemyBasic>().damageEnemy(bulletDamage);
             // Debug.Log("hit enemy for: " + bulletDamage);
             this.gameObject.SetActive(false);
-            GameObject explosion = SpriteFxManager.Instance.GetPooledExplosion(0);
+            int explosionType = 0;
+            GameObject explosion = SpriteFxManager.Instance.GetPooledExplosion(explosionType);
             if (explosion != null)
             {
                 explosion.SetActive(true);
                 explosion.transform.position = Col.transform.position;
+                SpriteFxManager.Instance.deactivateSpriteAfterDelay(SpriteFxManager.Instance.explosionDurations[explosionType], explosion);
             }
         }
     }

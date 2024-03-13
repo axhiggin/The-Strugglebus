@@ -10,7 +10,7 @@ public class SpriteFxManager : MonoBehaviour
     public int typesOfExplosions;
     public GameObject[] explosionPrefab;            
     public List<GameObject>[] explosionPool;          // Explosions.
-
+    public float[] explosionDurations;
     public int explosionsToPool = 10;
 
 
@@ -58,6 +58,17 @@ public class SpriteFxManager : MonoBehaviour
         }
         return null;
     }   
+
+    public void deactivateSpriteAfterDelay(float duration, GameObject sprite)
+    {
+        StartCoroutine(delayedDeactivation(duration, sprite));
+    }
+
+    IEnumerator delayedDeactivation(float duration, GameObject sprite) {
+        yield return new WaitForSeconds(duration);
+        sprite.SetActive(false);
+    }
+
 
     // Update is called once per frame
     void Update()

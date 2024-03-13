@@ -2121,6 +2121,13 @@ MonoBehaviour:
   - {fileID: 7547835683391476228, guid: 6a61ad9663f5b444bb14eb1521681603, type: 3}
   - {fileID: 1279239400751412213, guid: ff56b3a5d1f865e43af2a08060bcf8f8, type: 3}
   - {fileID: 394416882259174667, guid: ef7da5f2c13e43a46aeac87ec38a1bd7, type: 3}
+  explosionDurations:
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
+  - 0.5
   explosionsToPool: 10
 --- !u!4 &816519149
 Transform:
