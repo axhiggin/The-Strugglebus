@@ -90,6 +90,10 @@ public class PlayerBuild : MonoBehaviour
         //deletes a barrier
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (PathingMap.Instance.tm.GetTile(currentCell) == null)
+            {
+                return;
+            }
             // If the tile at currentCell in Tilemap tm is not null, then delete the tile and recalc flow field.
             if (PathingMap.Instance.tm.GetTile(currentCell).name == "Dungeon_Tileset_v2_78")
             {
@@ -98,18 +102,6 @@ public class PlayerBuild : MonoBehaviour
                 //change material count
                 materialCount++;
             }
-            else
-            {
-                if (PathingMap.Instance.tm.GetTile(currentCell) != null)
-                    Debug.Log("Tile: " + PathingMap.Instance.tm.GetTile(currentCell).name +  " at " + currentCell + " is not a barrier tile.");
-                // Otherwise, don't recalculate flow field, because nothing was deleted.
-
-                // Play sound effect / particles here maybe.
-
-                if (GameManager.DEBUG_MODE)
-                    Debug.Log("No tile to delete at " + currentCell);
-            }
-            // PathingMap.Instance.tm.SetTile(currentCell, null);
         }
     }
 

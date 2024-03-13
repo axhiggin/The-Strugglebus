@@ -321,7 +321,10 @@ public class PathingMap : MonoBehaviour
         {
             return true;
         }
-        if (tm.GetTile(tileCell).name != "unpathable_invis" && tm.GetTile(tileCell).name != "Dungeon_Tileset_v2_78")
+        if (tm.GetTile(tileCell).name != "unpathable_invis" &&
+            tm.GetTile(tileCell).name != "Unpathable_invis" &&
+            tm.GetTile(tileCell).name != "Dungeon_Tileset_v2_99" && 
+            tm.GetTile(tileCell).name != "Dungeon_Tileset_v2_78")
         {
             return true;
         }
