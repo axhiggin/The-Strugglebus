@@ -104,4 +104,9 @@ public class EnemyManager : MonoBehaviour
     {
 
     }
+
+    private void OnDestroy()
+    {
+        GameManager.StartBuildPhaseEvent -= spawnSpawner;
+    }
 }
