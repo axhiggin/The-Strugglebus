@@ -207,6 +207,15 @@ public class EnemyBasic : MonoBehaviour
                 explosion.transform.position = Col.transform.position;
                 SpriteFxManager.Instance.deactivateSpriteAfterDelay(SpriteFxManager.Instance.explosionDurations[explosionType], explosion);
             }
+
+            GameObject loseLifeAudio = AudioFxManager.Instance.GetAudioObject();
+            if (loseLifeAudio != null)
+            {
+                loseLifeAudio.SetActive(true);
+                loseLifeAudio.transform.position = Col.transform.position;
+                loseLifeAudio.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.loseLifeSound);
+                AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.loseLifeDuration, loseLifeAudio);
+            }
         }
     }
 }
