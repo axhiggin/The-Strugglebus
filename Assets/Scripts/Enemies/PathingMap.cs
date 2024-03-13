@@ -176,13 +176,13 @@ public class PathingMap : MonoBehaviour
     // Use breadth first search from start to generate a flow field for the index of flowMaps
     public bool generateFlowField(Vector3Int start)
     {
-        if (DEBUG_MODE)
-        {
-            foreach (GameObject square in debugPool)
-            {
-                Destroy(square);
-            }
-        }
+        //if (DEBUG_MODE)
+        //{
+        //    foreach (GameObject square in debugPool)
+        //    {
+        //        Destroy(square);
+        //    }
+        //}
         Queue<Vector3Int> queue = new Queue<Vector3Int>();
         queue.Enqueue(start);
 
@@ -243,10 +243,10 @@ public class PathingMap : MonoBehaviour
                             //visited[neighbor] = distance + 1;
                             visitedArray[v3_to_array_y(neighbor), v3_to_array_x(neighbor)] = distance + 1;
 
-                            if (DEBUG_MODE)
-                            {
-                                spawn_debug_square(neighbor, distance + 1);
-                            }
+                            //if (DEBUG_MODE)
+                            //{
+                            //    spawn_debug_square(neighbor, distance + 1);
+                            //}
                         }
                         // Tile is not null, set it's value to MAX_DISTANCE + distance.
                         else
@@ -278,10 +278,10 @@ public class PathingMap : MonoBehaviour
                             queue.Enqueue(neighbor);
                             //visited[neighbor] = distance + sqrt2
                             visitedArray[v3_to_array_y(neighbor), v3_to_array_x(neighbor)] = distance + Mathf.Sqrt(2);
-                            if (DEBUG_MODE)
-                            {
-                                spawn_debug_square(neighbor, distance + Mathf.Sqrt(2));
-                            }
+                            //if (DEBUG_MODE)
+                            //{
+                            //    spawn_debug_square(neighbor, distance + Mathf.Sqrt(2));
+                            //}
                         }
                         // Tile is not null, set it's value to MAX_DISTANCE + distance.
                         else
@@ -349,10 +349,10 @@ public class PathingMap : MonoBehaviour
         //        flowMap[new Vector3Int(i, j, 0)] = 0;
         //    }
         //}
-        if (DEBUG_MODE)
-        {
-            debugPool = new List<GameObject>();
-        }
+        //if (DEBUG_MODE)
+        //{
+        //    debugPool = new List<GameObject>();
+        //}
     }
 
     // Update is called once per frame
