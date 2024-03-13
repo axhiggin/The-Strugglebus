@@ -144,11 +144,7 @@ public class EnemyBasic : MonoBehaviour
                 {
                     // Add force to rigidbody in direction given by grabVectorFromPathingMap()
                     rb.AddForce(grabVectorFromPathingMap().normalized * speed);
-                } else
-                {
-                    // Add force to rigidbody in direction of player
-                    rb.AddForce((GameManager.Instance.playerReference.transform.position - transform.position).normalized * speed);
-                }
+                } 
             }
             else
             {
@@ -156,11 +152,6 @@ public class EnemyBasic : MonoBehaviour
                 {
                     // Add force to rigidbody in direction given by grabVectorFromPathingMap()
                     rb.AddForce(grabVectorFromPathingMap().normalized * speed);
-                }
-                else
-                {
-                    // Add force to rigidbody in direction of next waypoint
-                    rb.AddForce((waypointList[0].transform.position - transform.position).normalized * speed);
                 }
             }
         }
