@@ -84,6 +84,9 @@ public class TurretManager : MonoBehaviour{
     // Empty tiles and barricade tiles are valid.
     private bool isValidTowerTile(Vector3Int tilePosInt)
     {
+        if (PathingMap.Instance.generateFlowField(tilePosInt) == false){
+            return false;
+        }
         if (PathingMap.Instance.tm.GetTile(tilePosInt) == null || 
             PathingMap.Instance.tm.GetTile(tilePosInt).name == "Dungeon_Tileset_v2_78")
         {
