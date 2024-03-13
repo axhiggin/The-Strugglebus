@@ -187,6 +187,15 @@ public class EnemyBasic : MonoBehaviour
         {
             Instantiate(material, transform.position, Quaternion.identity);
         }
+        GameObject dropAudio = AudioFxManager.Instance.GetAudioObject();
+        if (dropAudio != null)
+        {
+            dropAudio.SetActive(true);
+            dropAudio.transform.position = transform.position;
+            int randomClip = Random.Range(0, AudioFxManager.Instance.materialDropSound.Length);
+            dropAudio.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.materialDropSound[randomClip]);
+            AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.materialDropDuration[randomClip], dropAudio);
+        }
     }
     void OnTriggerEnter2D(Collider2D Col)
     {

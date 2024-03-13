@@ -89,7 +89,12 @@ public class PlayerBuild : MonoBehaviour
                     {
                         audioSource.SetActive(true);
                         audioSource.transform.position = transform.position;
-                        int randomRange = Random.Range(0, (AudioFxManager.Instance.buildingSounds.Length - 1) * 33 + 1);
+                        //                                Last index in buildingSounds is an easter egg quack sound.
+                        //                                Each normal index will be represented by 33 integers
+                        //                                                                          Constant represents the chance
+                        //                                                                              for the quack sound effect
+                        //                                                                                           v
+                        int randomRange = Random.Range(0, (AudioFxManager.Instance.buildingSounds.Length - 1) * 33 + 5);
                         int randomClip = 0;
                         for (int i = 0; i < AudioFxManager.Instance.buildingSounds.Length; i++)
                         {
