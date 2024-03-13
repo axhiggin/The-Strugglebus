@@ -11,16 +11,23 @@ public class AudioFxManager : MonoBehaviour
 
     public GameObject audioFxObjectPrefab;
     private List<GameObject> objectPool;
-    public int audioObjectsToPool = 10;
+    public int audioObjectsToPool = 20;
+
+    public AudioClip errorSound;
+    public float errorDuration;
+    public AudioClip loseLifeSound;
+    public float loseLifeDuration;
 
     public AudioClip bigExplosion;
     public float bigExplosionDuration;
+
     public AudioClip[] explosionSounds;
     public float[] explosionDuration;
     public AudioClip[] laserSounds;
     public float[] laserDuration;
     public AudioClip[] buildingSounds;
     public float[] buildingDuration;
+
 
     private void Awake()
     {

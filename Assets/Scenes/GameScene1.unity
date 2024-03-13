@@ -1687,6 +1687,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioFxObjectPrefab: {fileID: 9166851154986552720, guid: 3dbc3fef3e64e5248b0edf00728bd959, type: 3}
   audioObjectsToPool: 10
+  errorSound: {fileID: 8300000, guid: 96fe38dd396861a4ca34a0848c1184d9, type: 3}
+  errorDuration: 0.8
+  loseLifeSound: {fileID: 8300000, guid: fa7b1df6b27733e49823d930076cf305, type: 3}
+  loseLifeDuration: 0.8
   bigExplosion: {fileID: 8300000, guid: 6dcfdaf61c90f9d4798475c42a7f483b, type: 3}
   bigExplosionDuration: 3
   explosionSounds:
@@ -1702,11 +1706,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 62b0cddd59a39704bb4ca5f386bb99c4, type: 3}
   - {fileID: 8300000, guid: a2ab7967f8aff634998ac5bb66d3e7b2, type: 3}
   laserDuration:
-  - 1
-  - 1
-  - 1
-  buildingSounds: []
-  buildingDuration: []
+  - 0.5
+  - 0.5
+  - 0.5
+  buildingSounds:
+  - {fileID: 8300000, guid: b3d1e98d9a57cb54ab4357cd6dd99f03, type: 3}
+  - {fileID: 8300000, guid: 95edca3d488317648b25432db04360b9, type: 3}
+  - {fileID: 8300000, guid: 11eea32ae69d8d648a1185190ab193d3, type: 3}
+  - {fileID: 8300000, guid: 0976a960ac6873c4c8eb6ef3bc7ffa78, type: 3}
+  buildingDuration:
+  - 0.8
+  - 0.8
+  - 0.8
+  - 0.8
 --- !u!4 &646852976
 Transform:
   m_ObjectHideFlags: 0

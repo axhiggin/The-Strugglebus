@@ -92,6 +92,14 @@ public class PlayerBuild : MonoBehaviour
         {
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
             {
+                GameObject audioSource = AudioFxManager.Instance.GetAudioObject();
+                if (audioSource != null)
+                {
+                    audioSource.SetActive(true);
+                    audioSource.transform.position = transform.position;
+                    audioSource.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.errorSound);
+                    AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.errorSound.length, audioSource);
+                }
                 return;
             }
             // If the tile at currentCell in Tilemap tm is not null, then delete the tile and recalc flow field.
@@ -101,6 +109,25 @@ public class PlayerBuild : MonoBehaviour
                 PathingMap.Instance.tm.SetTile(currentCell, null);
                 //change material count
                 materialCount++;
+
+                GameObject audioSource = AudioFxManager.Instance.GetAudioObject();
+                if (audioSource != null)
+                {
+                    audioSource.SetActive(true);
+                    audioSource.transform.position = transform.position;
+                    int randomRange = Random.Range(0, (AudioFxManager.Instance.buildingSounds.Length - 1) * 33 + 1);
+                    int randomClip = 0;
+                    for (int i = 0; i < AudioFxManager.Instance.buildingSounds.Length; i++)
+                    {
+                        if (randomRange < 33 * (i + 1))
+                        {
+                            randomClip = i;
+                            break;
+                        }
+                    }
+                    audioSource.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.buildingSounds[randomClip]);
+                    AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.buildingDuration[randomClip], audioSource);
+                }
             }
         }
     }
