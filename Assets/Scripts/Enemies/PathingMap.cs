@@ -60,7 +60,7 @@ public class PathingMap : MonoBehaviour
     [SerializeField]
     public Tile pathable_invis_tile;  // transparent tile
     [SerializeField]
-    public const bool DEBUG_MODE = true;   // PathingMap debug mode prints out squares on each tile
+    public const bool DEBUG_MODE = false;   // PathingMap debug mode prints out squares on each tile
     [SerializeField]
     public GameObject debugSquare;
     private List<GameObject> debugPool;

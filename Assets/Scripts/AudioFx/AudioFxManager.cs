@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,13 @@ public class AudioFxManager : MonoBehaviour
     void Start()
     {
         objectPool = new List<GameObject>();
+        for (int i = 0; i < audioObjectsToPool; i++)
+        {
+            GameObject obj = Instantiate(audioFxObjectPrefab);
+            obj.SetActive(false);
+            obj.transform.SetParent(transform);
+            objectPool.Add(obj);
+        }
     }
 
     public GameObject GetAudioObject()
