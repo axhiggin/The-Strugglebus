@@ -1694,36 +1694,36 @@ MonoBehaviour:
   - 1
   - 1
   errorSound: {fileID: 8300000, guid: 96fe38dd396861a4ca34a0848c1184d9, type: 3}
-  errorDuration: 0.8
+  errorDuration: 1.2
   loseLifeSound: {fileID: 8300000, guid: fa7b1df6b27733e49823d930076cf305, type: 3}
   loseLifeDuration: 0.8
   bigExplosion: {fileID: 8300000, guid: 6dcfdaf61c90f9d4798475c42a7f483b, type: 3}
-  bigExplosionDuration: 3
+  bigExplosionDuration: 4
   explosionSounds:
   - {fileID: 8300000, guid: bc9ad6a4f8799474799bb895df42fe3e, type: 3}
   - {fileID: 8300000, guid: 14697615929fdfc4697179572723c5bc, type: 3}
   - {fileID: 8300000, guid: d877546a74c93484187648799591279d, type: 3}
   explosionDuration:
-  - 1
-  - 1
-  - 1
+  - 1.25
+  - 1.25
+  - 1.25
   laserSounds:
   - {fileID: 8300000, guid: 852869e4ea547da459f3c0d3f6d96199, type: 3}
   - {fileID: 8300000, guid: 62b0cddd59a39704bb4ca5f386bb99c4, type: 3}
   - {fileID: 8300000, guid: a2ab7967f8aff634998ac5bb66d3e7b2, type: 3}
   laserDuration:
-  - 0.5
-  - 0.5
-  - 0.5
+  - 0.8
+  - 0.8
+  - 0.8
   buildingSounds:
   - {fileID: 8300000, guid: b3d1e98d9a57cb54ab4357cd6dd99f03, type: 3}
   - {fileID: 8300000, guid: 95edca3d488317648b25432db04360b9, type: 3}
   - {fileID: 8300000, guid: 11eea32ae69d8d648a1185190ab193d3, type: 3}
   - {fileID: 8300000, guid: 0976a960ac6873c4c8eb6ef3bc7ffa78, type: 3}
   buildingDuration:
-  - 0.8
-  - 0.8
-  - 0.8
+  - 2.2
+  - 1.3
+  - 0.6
   - 0.8
 --- !u!4 &646852976
 Transform:
