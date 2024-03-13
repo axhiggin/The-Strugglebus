@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Norman Zhu 3/12/2024 10:55PM
 public class SpriteFxManager : MonoBehaviour
 {
     public static SpriteFxManager Instance;
