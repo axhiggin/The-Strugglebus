@@ -65,6 +65,7 @@ public class PathingMap : MonoBehaviour
     public GameObject debugSquare;
     private List<GameObject> debugPool;
 
+    private EnemyManager enemMan;
 
     // List of flow fields (Dictionary<Vector3Int, int>) for each waypoint.
     //         Each dictionary indexed using Vector3Int of a cell, returns flow field value.
@@ -213,7 +214,7 @@ public class PathingMap : MonoBehaviour
         {
             Vector3Int current = queue.Dequeue();
 
-            if (EnemyManager.Instance.vector3_matches_one_spawner(current))
+            if (enemMan.vector3_matches_one_spawner(current))
             {
                 visitedSpawners++;
             }
@@ -294,7 +295,7 @@ public class PathingMap : MonoBehaviour
             }
         }
 
-        if (visitedSpawners == EnemyManager.Instance.getSpawnerCount())
+        if (visitedSpawners == enemMan.getSpawnerCount())
         {
             visitedAllSpawners = true;
         }
@@ -309,7 +310,7 @@ public class PathingMap : MonoBehaviour
         } else
         {
             Debug.Log("COULD NOT VISIT ALL SPAWNERS WITH THIS PASS OF GENERATEFLOWFIELD!");
-            Debug.Log("SPAWNERS THAT EXIST: " + EnemyManager.Instance.getSpawnerCount());
+            Debug.Log("SPAWNERS THAT EXIST: " + enemMan.getSpawnerCount());
             Debug.Log("SPAWNERS VISITED SUCCESSFULLY: " + visitedSpawners);
         }
         return visitedAllSpawners;
@@ -337,6 +338,8 @@ public class PathingMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemMan = FindObjectOfType<EnemyManager>();
+
         // Initialize the row and col variables to use for initializing the array.
         cols = (x_upper_bound - x_lower_bound) + 1;
         rows = (y_upper_bound - y_lower_bound) + 1;

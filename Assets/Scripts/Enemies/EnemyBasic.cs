@@ -25,6 +25,8 @@ public class EnemyBasic : MonoBehaviour
     public const bool USE_PATHING_MAP = true;
     [SerializeField] GameObject material;
 
+    EnemyManager enemMan;
+
     private void setSprite(GameObject spritePrefab)
     {
         // Instantiate the spritePrefab
@@ -42,8 +44,9 @@ public class EnemyBasic : MonoBehaviour
     void Start()
     {
         isAttacking = false;
+        enemMan = FindObjectOfType<EnemyManager>();
 
-        setSprite(EnemyManager.Instance.enemySpritePrefab[0]);
+        setSprite(enemMan.enemySpritePrefab[0]);
             // Creates a child object to hold the sprite.
             // Allows for resizing of sprite without affecting the collider.
         

@@ -15,15 +15,15 @@ public class GameOverSceneUI : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
 
-        roundCount = canvas.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        roundCount = canvas.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         roundCount.text = "You died after " + GameManager.Instance.getLevelCount() + " rounds";
 
-        zombiesKilled = canvas.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        zombiesKilled = canvas.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         zombiesKilled.text = "You killed " + GameManager.Instance.totalZombiesKilled + " zombies";
 
-        canvas.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(goToMenuScene);
+        canvas.transform.GetChild(5).GetComponent<Button>().onClick.AddListener(goToMenuScene);
         
-        canvas.transform.GetChild(5).GetComponent<Button>().onClick.AddListener(goToGameScene);
+        canvas.transform.GetChild(6).GetComponent<Button>().onClick.AddListener(goToGameScene);
     }
     
     public void goToMenuScene()

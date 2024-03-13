@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour
     // Instantiated, not object pooled.
     //         Only need one or a few at level start.
 
-    private static EnemyManager _instance;
+    /*private static EnemyManager _instance;
 
     public static EnemyManager Instance { get { return _instance; } }
 
@@ -28,6 +28,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
+            Debug.Log("INSTANCE OF ENEMYMANAGER DESTROYED");
             Destroy(this.gameObject);
         }
         else
@@ -35,7 +36,7 @@ public class EnemyManager : MonoBehaviour
             _instance = this;
         }
         //DontDestroyOnLoad(gameObject);
-    }
+    }*/
     // Start is called before the first frame update
     void Start()
     {
