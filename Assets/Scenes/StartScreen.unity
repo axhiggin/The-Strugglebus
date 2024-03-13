@@ -1169,6 +1169,8 @@ MonoBehaviour:
   isEnemyPhase: 0
   gameIsOver: 0
   totalZombiesKilled: 0
+  musicVolume: 1
+  effectsVolume: 1
   buildPhaseLengthSeconds: 10
   enemyPhaseLengthSeconds: 20
   timerLabel: {fileID: 0}

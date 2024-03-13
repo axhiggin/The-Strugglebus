@@ -85,6 +85,10 @@ public class GameManager : MonoBehaviour
     private int livesRemaining = 0;
 
     public int totalZombiesKilled = 0;
+
+    //VOLUME CONTROL
+    public float musicVolume = 1;
+    public float effectsVolume = 1;
     // Default values set here. 
     // SerializeField means you can change in inspector.
     // Inspector values will override values here.

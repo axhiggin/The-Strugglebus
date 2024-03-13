@@ -53,6 +53,7 @@ public class AudioFxManager : MonoBehaviour
             GameObject obj = Instantiate(audioFxObjectPrefab);
             obj.SetActive(false);
             obj.transform.SetParent(transform);
+            obj.GetComponent<AudioSource>().volume = GameManager.Instance.effectsVolume;
             objectPool.Add(obj);
         }
     }

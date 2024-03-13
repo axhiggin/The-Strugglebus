@@ -929,7 +929,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tilemap and enemy assets: '
+  m_text: "Tilemap and enemy assets: \nhttps://pixel-poem.itch.io/dungeon-assetpuck"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9636ca1e0a85bb84e84ffbd210ed83cd, type: 2}
   m_sharedMaterial: {fileID: -3798636747314260626, guid: 9636ca1e0a85bb84e84ffbd210ed83cd, type: 2}

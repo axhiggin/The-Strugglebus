@@ -80,4 +80,9 @@ void PlayAudioForScene()
     {
         //PlayAudioForScene();
     }
+
+    public void setVolume(float vol)
+    {
+        audioSource.volume = vol;
+    }
 }
