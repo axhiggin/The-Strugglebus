@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] float bulletSpeed = 20.0f, bulletDamage = 5.0f;
+    [SerializeField] float bulletSpeed = 20.0f, bulletDamage = 5.0f, bulletDuration = 1.0f;
     public Transform enemy;
     private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        StartCoroutine(DestroyBullet());
     }
 
     // Update is called once per frame
@@ -28,5 +29,11 @@ public class Bullet : MonoBehaviour
             // Debug.Log("hit enemy for: " + bulletDamage);
             this.gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator DestroyBullet()
+    {
+        yield return new WaitForSeconds(bulletDuration);
+        this.gameObject.SetActive(false);
     }
 }
