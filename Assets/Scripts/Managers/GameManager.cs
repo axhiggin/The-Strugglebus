@@ -261,6 +261,7 @@ public class GameManager : MonoBehaviour
         {
             gameIsOver = true;
             GameOverEvent?.Invoke();
+            SceneManager.LoadScene("GameOverScene");
             // Call game over function.
             // Maybe call a game over event here.
             // Maybe call a game over event in UIManager.

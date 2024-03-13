@@ -21,22 +21,20 @@ public class EnemyManager : MonoBehaviour
 
     private static EnemyManager _instance;
 
-    public static EnemyManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<EnemyManager>();
-            }
+    public static EnemyManager Instance { get { return _instance; } }
 
-            return _instance;
-        }
-    }
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        //DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
     void Start()
