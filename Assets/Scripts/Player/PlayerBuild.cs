@@ -54,10 +54,13 @@ public class PlayerBuild : MonoBehaviour
             // If the tile at currentCell in Tilemap tm is null, then place a tile and recalc flow field.
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
             {
-                PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
-                PathingMap.Instance.generateFlowField(playerCell);
-                //change material count
-                materialCount--;
+                if (PathingMap.Instance.generateFlowField(playerCell) == true)
+                {
+                    PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
+
+                    //change material count
+                    materialCount--;
+                }
             }
             else
             {
