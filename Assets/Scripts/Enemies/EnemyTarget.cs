@@ -43,14 +43,36 @@ public class EnemyTarget : MonoBehaviour
 
     private void OnBuildPhaseStart()
     {
+        Vector3Int currentCell = PathingMap.Instance.tm.WorldToCell(target.transform.position);
+        PathingMap.Instance.tm.SetTile(currentCell, null);
         Debug.Log("EnemyTarget: Build phase started, moving to random location.");
         float randomX = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound);
         float randomY = Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_lower_bound + 2);
+        Vector3Int randCell = PathingMap.Instance.tm.WorldToCell(new Vector3(randomX, randomY, 0));
+        while (true)
+        {
+            // If valid path exists to spot picked
+            if (PathingMap.Instance.generateFlowField(randCell) == true)
+            {
+                // Spot picked is a null tile OR a barricade, then we'll accept replacing it.
+                // But not unpathable_invis (tower) or pathable_invis (spawner)
+                if (PathingMap.Instance.tm.GetTile(randCell) == null ||
+                    PathingMap.Instance.tm.GetTile(randCell).name == "Dungeon_Tileset_v2_78")
+                {
+                    break;
+                }
+            }
+            randomX = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound);
+            randomY = Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_lower_bound + 2);
+            randCell = PathingMap.Instance.tm.WorldToCell(new Vector3(randomX, randomY, 0));
+        }
 
+        PathingMap.Instance.tm.SetTile(randCell, PathingMap.Instance.pathable_invis_tile);
         randomX = Mathf.Round(randomX) + 0.5f;  // Round and add 0.5 to get center of tile.
         randomY = Mathf.Round(randomY) + 0.5f;
         target.transform.position = new Vector3(randomX, randomY, 0);
     }
+
     private void OnEnemyPhaseStart()
     {
         // When the enemy phase starts, update the target and generate a flow field

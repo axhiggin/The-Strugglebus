@@ -159,6 +159,7 @@ public class PathingMap : MonoBehaviour
         }
     }
 
+    // Is this function even used? MIGHT BE DEPRECATED.
     public void generateFlowFieldToEndpoint()
     {
         if (endpoint != null)
