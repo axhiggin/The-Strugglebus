@@ -62,13 +62,17 @@ public class PlayerBuild : MonoBehaviour
             // If the tile at currentCell in Tilemap tm is null, then place a tile and recalc flow field.
             if (PathingMap.Instance.tm.GetTile(currentCell) == null)
             {
-                Vector3Int targetCell = PathingMap.Instance.tm.WorldToCell(enemyTarget.transform.position);
-                if (PathingMap.Instance.generateFlowField(targetCell) == true)
-                {
-                    PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
+                PathingMap.Instance.tm.SetTile(currentCell, PathingMap.Instance.tile);
 
-                    //change material count
-                    materialCount--;
+                //change material count
+                materialCount--;
+
+                Vector3Int targetCell = PathingMap.Instance.tm.WorldToCell(enemyTarget.transform.position);
+                if (PathingMap.Instance.generateFlowField(targetCell) == false)
+                {
+                    Debug.LogWarning("PlayerBuild: Failed to path to all enemySpawners, removing last created barricade.");
+                    PathingMap.Instance.tm.SetTile(currentCell, null);
+                    materialCount++;
                 }
             }
             else
