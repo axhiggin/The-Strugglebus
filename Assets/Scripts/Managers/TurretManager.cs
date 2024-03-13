@@ -22,7 +22,7 @@ public class TurretManager : MonoBehaviour{
         // SpawnTurrets();
 
         GameManager.StartBuildPhaseEvent += spawnTurrets;
-        GameManager.EndEnemyPhaseEvent += destroyTurrets;
+        // GameManager.EndEnemyPhaseEvent += destroyTurrets;
         turretsList = new List<GameObject>();
         turretsList.Clear();
     }

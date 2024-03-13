@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretPrefab: {fileID: 8821482756798034242, guid: 82c7a70f3fdf8429c891e30cce2d7ded, type: 3}
-  numTurrets: 3
+  numTurrets: 2
 --- !u!4 &446767983
 Transform:
   m_ObjectHideFlags: 0

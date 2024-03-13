@@ -94,7 +94,7 @@ public class PathingMap : MonoBehaviour
         List<Vector3Int> valid_diagonals = new List<Vector3Int>();
 
         // UP LEFT
-        if (tm.GetTile(current + Vector3Int.up) == null || tm.GetTile(current + Vector3Int.left) == null)
+        if (tileIsPathable(current + Vector3Int.up) || tileIsPathable(current + Vector3Int.left))
         {
             Vector3Int upleft = new Vector3Int(current.x - 1, current.y + 1, 0);
             if (v3int_in_bounds(upleft))
@@ -103,7 +103,7 @@ public class PathingMap : MonoBehaviour
             }
         }
         // UP RIGHT
-        if (tm.GetTile(current + Vector3Int.up) == null || tm.GetTile(current + Vector3Int.right) == null)
+        if (tileIsPathable(current + Vector3Int.up) || tileIsPathable(current + Vector3Int.right))
         {
             Vector3Int upright = new Vector3Int(current.x + 1, current.y + 1, 0);
             if (v3int_in_bounds(upright))
@@ -112,7 +112,7 @@ public class PathingMap : MonoBehaviour
             }
         }
         // DOWN RIGHT
-        if (tm.GetTile(current + Vector3Int.down) == null || tm.GetTile(current + Vector3Int.right) == null)
+        if (tileIsPathable(current + Vector3Int.down) || tileIsPathable(current + Vector3Int.right))
         {
             Vector3Int downright = new Vector3Int(current.x + 1, current.y - 1, 0);
             if (v3int_in_bounds(downright))
@@ -121,7 +121,7 @@ public class PathingMap : MonoBehaviour
             }
         }
         // DOWN LEFT
-        if (tm.GetTile(current + Vector3Int.down) == null || tm.GetTile(current + Vector3Int.left) == null)
+        if (tileIsPathable(current + Vector3Int.down) || tileIsPathable(current + Vector3Int.left))
         {
             Vector3Int downleft = new Vector3Int(current.x - 1, current.y - 1, 0);
             if (v3int_in_bounds(downleft)){
