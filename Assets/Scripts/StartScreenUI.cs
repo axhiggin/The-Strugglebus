@@ -12,7 +12,7 @@ public class StartScreenUI : MonoBehaviour
     void Start()
     {
         canvas = GetComponent<Canvas>();
-        canvas.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(toGame);
+        canvas.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(toGame);
         //ADD THE REST HERE
     }
 
