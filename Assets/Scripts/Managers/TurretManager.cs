@@ -50,9 +50,13 @@ public class TurretManager : MonoBehaviour{
 
             int max_rerolls = 50;
             int current_reroll = 0;
-            // check if tile is empty, if not, reroll.
-            while (PathingMap.Instance.tm.GetTile(tilePosInt) != null && current_reroll < max_rerolls)
+            while (true)
             {
+                // check if tile is empty, if not, reroll.
+                if (PathingMap.Instance.tm.GetTile(tilePosInt) == null)
+                    break;
+                if (current_reroll >= max_rerolls)
+                    break;
                 xCoord = Random.Range(PathingMap.Instance.x_lower_bound + 2, PathingMap.Instance.x_upper_bound - 2) + 0.5f;
                 yCoord = Random.Range(PathingMap.Instance.y_lower_bound + 2, PathingMap.Instance.y_upper_bound - 2) + 0.5f;
                 randomTilePosition = new Vector3(xCoord, yCoord, 0);
@@ -60,12 +64,7 @@ public class TurretManager : MonoBehaviour{
                 current_reroll++;
             }
 
-            if (PathingMap.Instance.tm.GetTile(tilePosInt) != null)
-            {
-                // Found something else in this spot (not null) after 50 rerolls
-                // , so we can't place a turret here.
-                continue;
-            } else
+            if (PathingMap.Instance.tm.GetTile(tilePosInt) == null)
             {
                 Debug.Log("Spawning turret");
                 GameObject newTurret = Instantiate(turretPrefab, randomTilePosition, Quaternion.identity);
