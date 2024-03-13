@@ -42,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: animation
+    uniqueID: 3907800151
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

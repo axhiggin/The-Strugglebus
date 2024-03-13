@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7168472035762564934}
   - component: {fileID: 2738681283823522974}
   - component: {fileID: 3436556997659725074}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ClawsEffect1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,11 +27,11 @@ Transform:
   m_GameObject: {fileID: 6715210421998603352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.770336, y: -2.359259, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 999.99994, y: 999.99994, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2738681283823522974
 SpriteRenderer:
@@ -71,9 +71,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -387167145
+  m_SortingLayer: -1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 107417872, guid: 7488375625a570e468614faa15ffced9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
