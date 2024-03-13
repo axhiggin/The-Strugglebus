@@ -55,7 +55,7 @@ public class TurretManager : MonoBehaviour{
             while (true)
             {
                 // check if tile is empty, if not, reroll.
-                if (PathingMap.Instance.tm.GetTile(tilePosInt) == null)
+                if (isValidTowerTile(tilePosInt))
                     break;
                 if (current_reroll >= max_rerolls)
                     break;
@@ -66,7 +66,7 @@ public class TurretManager : MonoBehaviour{
                 current_reroll++;
             }
 
-            if (PathingMap.Instance.tm.GetTile(tilePosInt) == null)
+            if (isValidTowerTile(tilePosInt))
             {
                 Debug.Log("Spawning turret");
                 GameObject newTurret = Instantiate(turretPrefab, randomTilePosition, Quaternion.identity);
@@ -76,6 +76,16 @@ public class TurretManager : MonoBehaviour{
         }
     }
 
+    // Empty tiles and barricade tiles are valid.
+    private bool isValidTowerTile(Vector3Int tilePosInt)
+    {
+        if (PathingMap.Instance.tm.GetTile(tilePosInt) == null || 
+            PathingMap.Instance.tm.GetTile(tilePosInt).name == "Dungeon_Tileset_v2_78")
+        {
+            return true;
+        }
+        return false;
+    }
 
     //spawn n number of turrets inside the bounds restricted by the bounds of the tilemap 
     //private void SpawnTurrets()

@@ -108,7 +108,7 @@ public class PlayerBuild : MonoBehaviour
                 if (GameManager.DEBUG_MODE)
                     Debug.Log("No tile to delete at " + currentCell);
             }
-            PathingMap.Instance.tm.SetTile(currentCell, null);
+            // PathingMap.Instance.tm.SetTile(currentCell, null);
         }
     }
 
