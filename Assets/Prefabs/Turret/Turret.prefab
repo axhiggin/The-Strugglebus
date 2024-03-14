@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df874ac4d49b41aba6194f0d5c61aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Range: 3
-  FireRate: 1.75
+  Range: 2.5
+  FireRate: 0.8
   bullet: {fileID: 7542260966780099661, guid: d13f8b8061e984978b4e95ca6ae7fb2e, type: 3}
   shootPoint: {fileID: 3045992298248105791}
 --- !u!50 &5267294251072861770
