@@ -12,7 +12,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     //turret stats
-    [SerializeField] float Range = 3.0f, FireRate = 0.7f;
+    [SerializeField] float Range = 3.0f, FireRate = 0.4f;
     [SerializeField] GameObject bullet;
     //list of enemies within range
     private List<GameObject> enemyList = new List<GameObject>();
