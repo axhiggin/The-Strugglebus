@@ -5,6 +5,9 @@ using UnityEngine;
 
 // Norman Zhu 3/13/2024 3:27PM - laser firing sou nd effects
 
+// Norman Zhu 3/13/2024 8:31PM - fix turret attack speed issue.
+//                               fix turret targeting inactive enemies.
+
 // Last edited - Guy Haiby 12:11 AM 3/10/2024, animations controller, shooting logic
 public class Turret : MonoBehaviour
 {
@@ -35,23 +38,33 @@ public class Turret : MonoBehaviour
 
     void Update()
     {
-
+        nextFire += Time.deltaTime;
         //raycast for detection
         foreach (GameObject enemy in enemyList)
         {
-            //update target position
-            Vector2 targetPos = enemy.transform.position;
-            Direction = targetPos - (Vector2)transform.position;
-            //make turret face target
-            this.gameObject.transform.right = Direction;
-
-            nextFire += Time.deltaTime;
-            if (1 / FireRate <= nextFire)
+            if (!enemy.activeInHierarchy)
             {
-                nextFire = 0f;
-                shoot(enemy);
+                enemyList.Remove(enemy);
             }
         }
+
+        if (nextFire >= FireRate && enemyList.Count > 0)
+        {
+            shootAnEnemy();
+        }
+            
+    }
+
+    void shootAnEnemy()
+    {
+        //update target position
+        Vector2 targetPos = enemyList[0].transform.position;
+        Direction = targetPos - (Vector2)transform.position;
+        //make turret face target
+        this.gameObject.transform.right = Direction;
+
+        nextFire = 0f;
+        shoot(enemyList[0]);
     }
 
     void shoot(GameObject enemy)
