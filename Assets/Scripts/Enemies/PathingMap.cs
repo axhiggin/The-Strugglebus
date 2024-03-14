@@ -73,6 +73,8 @@ public class PathingMap : MonoBehaviour
     public Dictionary<Vector3Int, float> flowMap; // DEPRECATED.
     public float[,] flowMapArray;
 
+    public int[,] buildGrid;
+
     public bool v3int_in_bounds(Vector3Int v3)
     {
         if (v3.x < x_lower_bound ||
@@ -351,6 +353,16 @@ public class PathingMap : MonoBehaviour
         // initialize flow map
         // flowMap = new Dictionary<Vector3Int, float>();
         flowMapArray = new float[rows, cols];
+
+        buildGrid = new int[rows, cols];
+        //initialize all cells in buildgrid
+        for (int i = 0; i < rows; ++i)
+        {
+            for (int j = 0; j < cols; ++j)
+            {
+                buildGrid[i, j] = 0;
+            }
+        }
 
         //for (int i = x_lower_bound; i < x_upper_bound; i++)
         //{
