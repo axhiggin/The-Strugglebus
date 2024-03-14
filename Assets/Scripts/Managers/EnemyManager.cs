@@ -58,7 +58,7 @@ public class EnemyManager : MonoBehaviour
         {
             // Pick a random tile.
             float xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
-            float yCoord = Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound) + 0.5f;
+            float yCoord = Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound + 1) + 0.5f;
 
             Vector3 randomTilePosition = new Vector3(xCoord, yCoord, 0);
             Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
@@ -73,7 +73,7 @@ public class EnemyManager : MonoBehaviour
                 if (current_reroll >= max_rerolls)
                     break;
                 xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
-                yCoord = Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound) + 0.5f;
+                yCoord = Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound + 1) + 0.5f;
                 randomTilePosition = new Vector3(xCoord, yCoord, 0);
                 tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
                 current_reroll++;
