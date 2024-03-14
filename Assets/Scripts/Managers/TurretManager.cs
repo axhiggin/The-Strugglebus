@@ -50,9 +50,7 @@ public class TurretManager : MonoBehaviour{
         }
         for (int i = 0; i < numTurrets; ++i)
         {
-            float xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
-            float yCoord = Random.Range(PathingMap.Instance.y_lower_bound + 2, PathingMap.Instance.y_upper_bound - 2) + 0.5f;
-            Vector3 randomTilePosition = new Vector3(xCoord, yCoord, 0);
+            Vector3 randomTilePosition = getRandomTurretCoords();
             Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
 
             int max_rerolls = 50;
@@ -64,9 +62,7 @@ public class TurretManager : MonoBehaviour{
                     break;
                 if (current_reroll >= max_rerolls)
                     break;
-                xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
-                yCoord = Random.Range(PathingMap.Instance.y_lower_bound + 2, PathingMap.Instance.y_upper_bound - 2) + 0.5f;
-                randomTilePosition = new Vector3(xCoord, yCoord, 0);
+                randomTilePosition = getRandomTurretCoords();
                 tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
                 current_reroll++;
             }
@@ -79,6 +75,13 @@ public class TurretManager : MonoBehaviour{
                 turretsList.Add(newTurret);
             }
         }
+    }
+
+    private Vector3 getRandomTurretCoords()
+    {
+        float xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
+        float yCoord = Random.Range(PathingMap.Instance.y_lower_bound + 2, PathingMap.Instance.y_upper_bound - 2) + 0.5f;
+        return new Vector3(xCoord, yCoord, 0);
     }
 
     // Empty tiles and barricade tiles are valid.
