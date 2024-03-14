@@ -294,6 +294,7 @@ public class GameManager : MonoBehaviour
     {
         currentScaling = 1f;
         currentScore = 0;
+        totalZombiesKilled = 0;
         livesRemaining = DEFAULT_LIVES;
         playerReference.SetActive(false); // Start player as inactive during first countdown start of game.
         resetLevelCount();
