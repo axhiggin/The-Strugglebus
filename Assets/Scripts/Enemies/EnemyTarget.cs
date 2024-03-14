@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTarget : MonoBehaviour
@@ -110,5 +111,7 @@ public class EnemyTarget : MonoBehaviour
     public void decrementLives(int howManyLives)
     {
         GameManager.Instance.decrementLives(howManyLives);
+        //screen shake by setting trigger in animator
+        FindFirstObjectByType(typeof(Camera)).GetComponent<Animator>().SetTrigger("shakeTrigger");
     }
 }
