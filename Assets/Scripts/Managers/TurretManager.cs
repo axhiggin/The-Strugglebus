@@ -11,7 +11,7 @@ using UnityEngine.Tilemaps;
 public class TurretManager : MonoBehaviour{
 
     [SerializeField] GameObject turretPrefab; //turret prefab to spawn
-    [SerializeField] int numTurrets;
+    [SerializeField] int numTurrets;          // turrets to spawn per round
     [SerializeField] int MAX_TURRETS;
 
     private List<GameObject> turretsList;
