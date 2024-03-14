@@ -9,6 +9,7 @@ public class MusicVolume : MonoBehaviour
     void Start()
     {
         volumeSlider = GetComponent<Slider>();
+        volumeSlider.maxValue = AudioManager.Instance.maxVolume;
     }
 
     void Update()
