@@ -42,18 +42,7 @@ public class Turret : MonoBehaviour
         //raycast for detection
         foreach (GameObject enemy in enemyList)
         {
-<<<<<<< Updated upstream
             if (!enemy.activeInHierarchy)
-=======
-            //update target position
-            Vector2 targetPos = enemy.transform.position;
-            Direction = targetPos - (Vector2)transform.position;
-            //make turret face target
-            this.gameObject.transform.GetChild(0).right = Direction;
-
-            nextFire += Time.deltaTime;
-            if (1 / FireRate <= nextFire)
->>>>>>> Stashed changes
             {
                 enemyList.Remove(enemy);
             }

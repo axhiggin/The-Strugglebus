@@ -20,9 +20,7 @@ public class GameOverSceneUI : MonoBehaviour
 
         zombiesKilled = canvas.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         zombiesKilled.text = "You killed " + GameManager.Instance.totalZombiesKilled + " zombies";
-         zombiesKilled.text += "\nHigh Score:  " + PlayerPrefs.GetInt("HighScore") + " zombies"
-          + PlayerPrefs.GetInt("\nLevelCount") + " levelcount";
-         
+
         canvas.transform.GetChild(5).GetComponent<Button>().onClick.AddListener(goToMenuScene);
         
         canvas.transform.GetChild(6).GetComponent<Button>().onClick.AddListener(goToGameScene);

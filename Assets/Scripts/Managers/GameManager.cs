@@ -366,7 +366,6 @@ public class GameManager : MonoBehaviour
     {
         // This function will be called whenever a new scene is loaded
         Debug.Log("Scene loaded: " + scene.name);
-        HighScore();
 
         // if scene.name is GameScene1, set the playerReference
         if (scene.name == "GameScene1")
@@ -405,17 +404,5 @@ public class GameManager : MonoBehaviour
     public int getLivesRemaining()
     {
         return livesRemaining;
-    }
-
-    
-    private void HighScore(){
-         if(totalZombiesKilled > PlayerPrefs.GetInt("HighScore")){
-            PlayerPrefs.SetInt("HighScore", totalZombiesKilled);
-        }
-        if(levelCount > PlayerPrefs.GetInt("LevelCount")){
-            PlayerPrefs.SetInt("LevelCount", levelCount);
-        }
-        Debug.Log("Player Prefs high score:" + PlayerPrefs.GetInt("HighScore"));
-        Debug.Log("Player Prefs level count:" + PlayerPrefs.GetInt("Level count"));
     }
 }
