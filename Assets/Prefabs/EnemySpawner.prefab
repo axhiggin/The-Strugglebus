@@ -101,6 +101,6 @@ MonoBehaviour:
   localEnemyPool: []
   spawnTimer: 0
   spawnInterval: 1
-  maxEnemies: 5
+  maxEnemies: 10
   waypointPrefab: {fileID: 3601087833602767382, guid: 041c3f08b03627a4d98201622feb5709, type: 3}
   waypointList: []
