@@ -28,6 +28,11 @@ public class TurretManager : MonoBehaviour{
         turretsList.Clear();
     }
 
+    private void OnDestroy()
+    {
+        GameManager.StartBuildPhaseEvent -= spawnTurrets;
+    }
+
     private void destroyTurrets()
     {
         Debug.Log("destroyTurrets called");
