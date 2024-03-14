@@ -44,6 +44,12 @@ public class EnemyTarget : MonoBehaviour
 
     private void OnBuildPhaseStart()
     {
+        StartCoroutine(moveEnemyTarget());
+    }
+
+    private IEnumerator moveEnemyTarget()
+    {
+        yield return new WaitForSeconds(0.1f); 
         Vector3Int currentCell = PathingMap.Instance.tm.WorldToCell(target.transform.position);
         PathingMap.Instance.tm.SetTile(currentCell, null);
         Debug.Log("EnemyTarget: Build phase started, moving to random location.");

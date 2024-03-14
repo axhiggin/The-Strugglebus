@@ -48,36 +48,41 @@ public class TurretManager : MonoBehaviour{
 
     private void spawnTurrets()
     {
+        StartCoroutine(spawnTurretsCoroutine());
+    }
+
+    private IEnumerator spawnTurretsCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
         Debug.Log("spawnTurrets called");
-        if (turretsList.Count >= MAX_TURRETS)
+        if (turretsList.Count < MAX_TURRETS)
         {
-            return;
-        }
-        for (int i = 0; i < numTurrets; ++i)
-        {
-            Vector3 randomTilePosition = getRandomTurretCoords();
-            Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
-
-            int max_rerolls = 50;
-            int current_reroll = 0;
-            while (true)
+            for (int i = 0; i < numTurrets; ++i)
             {
-                // check if tile is empty, if not, reroll.
+                Vector3 randomTilePosition = getRandomTurretCoords();
+                Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
+
+                int max_rerolls = 50;
+                int current_reroll = 0;
+                while (true)
+                {
+                    // check if tile is empty, if not, reroll.
+                    if (isValidTowerTile(tilePosInt))
+                        break;
+                    if (current_reroll >= max_rerolls)
+                        break;
+                    randomTilePosition = getRandomTurretCoords();
+                    tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
+                    current_reroll++;
+                }
+
                 if (isValidTowerTile(tilePosInt))
-                    break;
-                if (current_reroll >= max_rerolls)
-                    break;
-                randomTilePosition = getRandomTurretCoords();
-                tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
-                current_reroll++;
-            }
-
-            if (isValidTowerTile(tilePosInt))
-            {
-                Debug.Log("Spawning turret");
-                GameObject newTurret = Instantiate(turretPrefab, randomTilePosition, Quaternion.identity);
-                PathingMap.Instance.tm.SetTile(tilePosInt, PathingMap.Instance.unpathable_invis_tile);
-                turretsList.Add(newTurret);
+                {
+                    Debug.Log("Spawning turret");
+                    GameObject newTurret = Instantiate(turretPrefab, randomTilePosition, Quaternion.identity);
+                    PathingMap.Instance.tm.SetTile(tilePosInt, PathingMap.Instance.unpathable_invis_tile);
+                    turretsList.Add(newTurret);
+                }
             }
         }
     }
