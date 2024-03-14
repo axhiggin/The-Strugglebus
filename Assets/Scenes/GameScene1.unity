@@ -2077,6 +2077,10 @@ MonoBehaviour:
   - 0.5
   - 0.5
   explosionsToPool: 10
+  smokePrefab: {fileID: 2894004703044009478, guid: 5bcd744d09e1eb041b34b9b80a872f59, type: 3}
+  smokePool: []
+  smokeDuration: 0.4
+  smokeToPool: 10
 --- !u!4 &816519149
 Transform:
   m_ObjectHideFlags: 0

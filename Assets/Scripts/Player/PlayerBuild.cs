@@ -107,6 +107,13 @@ public class PlayerBuild : MonoBehaviour
                         audioSource.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.buildingSounds[randomClip]);
                         AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.buildingDuration[randomClip], audioSource);
                     }
+                    GameObject smokeFx = SpriteFxManager.Instance.GetPooledSmoke();
+                    if (smokeFx != null)
+                    {
+                        smokeFx.SetActive(true);
+                        smokeFx.transform.position = PathingMap.Instance.tm.GetCellCenterWorld(currentCell);
+                        SpriteFxManager.Instance.deactivateSpriteAfterDelay(SpriteFxManager.Instance.smokeDuration, smokeFx);
+                    }
                 }
             }
             else

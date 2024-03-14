@@ -15,6 +15,11 @@ public class SpriteFxManager : MonoBehaviour
     public float[] explosionDurations;
     public int explosionsToPool = 10;
 
+    public GameObject smokePrefab;
+    public List<GameObject> smokePool;
+    public float smokeDuration;
+    public int smokeToPool = 10;
+
 
     private void Awake()
     {
@@ -35,6 +40,15 @@ public class SpriteFxManager : MonoBehaviour
         for (int i = 0; i < typesOfExplosions; i++)
         {
             CreateExplosionPool(i);
+        }
+
+        smokePool = new List<GameObject>();
+        for (int i = 0; i < smokeToPool; i++)
+        {
+            GameObject obj = Instantiate(smokePrefab);
+            obj.SetActive(false);
+            obj.transform.SetParent(transform);
+            smokePool.Add(obj);
         }
     }
 
@@ -60,6 +74,18 @@ public class SpriteFxManager : MonoBehaviour
         }
         return null;
     }   
+
+    public GameObject GetPooledSmoke()
+    {
+        for (int i = 0; i < smokePool.Count; i++)
+        {
+            if (!smokePool[i].activeInHierarchy)
+            {
+                return smokePool[i];
+            }
+        }
+        return null;
+    }
 
     public void deactivateSpriteAfterDelay(float duration, GameObject sprite)
     {

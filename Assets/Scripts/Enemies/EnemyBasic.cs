@@ -158,6 +158,16 @@ public class EnemyBasic : MonoBehaviour
                 }
             }
         }
+
+        // if x velocity is negative, then set the spriteholder scale to -1
+        if (rb.velocity.x < 0)
+        {
+            spriteHolder.transform.localScale = new Vector3(-10, 10, 1);
+        }
+        else
+        {
+            spriteHolder.transform.localScale = new Vector3(10, 10, 1);
+        }
         // If player in range.
         //         Override waypoints and target player.
 
@@ -186,15 +196,23 @@ public class EnemyBasic : MonoBehaviour
         if (Random.Range(0, 10) > 5)
         {
             Instantiate(material, transform.position, Quaternion.identity);
-        }
-        GameObject dropAudio = AudioFxManager.Instance.GetAudioObject();
-        if (dropAudio != null)
-        {
-            dropAudio.SetActive(true);
-            dropAudio.transform.position = transform.position;
-            int randomClip = Random.Range(0, AudioFxManager.Instance.materialDropSound.Length);
-            dropAudio.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.materialDropSound[randomClip]);
-            AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.materialDropDuration[randomClip], dropAudio);
+            GameObject dropAudio = AudioFxManager.Instance.GetAudioObject();
+            if (dropAudio != null)
+            {
+                dropAudio.SetActive(true);
+                dropAudio.transform.position = transform.position;
+                int randomClip = Random.Range(0, AudioFxManager.Instance.materialDropSound.Length);
+                dropAudio.GetComponent<AudioSource>().PlayOneShot(AudioFxManager.Instance.materialDropSound[randomClip]);
+                AudioFxManager.Instance.deactivateObjectAfterDelay(AudioFxManager.Instance.materialDropDuration[randomClip], dropAudio);
+            }
+
+            GameObject smokeFx = SpriteFxManager.Instance.GetPooledSmoke();
+            if (smokeFx != null)
+            {
+                smokeFx.SetActive(true);
+                smokeFx.transform.position = transform.position;
+                SpriteFxManager.Instance.deactivateSpriteAfterDelay(SpriteFxManager.Instance.smokeDuration, smokeFx);
+            }
         }
     }
     void OnTriggerEnter2D(Collider2D Col)
