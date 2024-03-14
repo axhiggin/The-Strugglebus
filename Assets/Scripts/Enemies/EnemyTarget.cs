@@ -49,8 +49,14 @@ public class EnemyTarget : MonoBehaviour
         float randomX = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound);
         float randomY = Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_lower_bound + 2);
         Vector3Int randCell = PathingMap.Instance.tm.WorldToCell(new Vector3(randomX, randomY, 0));
+        int max_rerolls = 50;
+        int curr_rerolls = 0;
         while (true)
         {
+            if (curr_rerolls >= max_rerolls)
+            {
+                break;
+            }
             // If valid path exists to spot picked
             if (PathingMap.Instance.generateFlowField(randCell) == true)
             {
@@ -65,6 +71,7 @@ public class EnemyTarget : MonoBehaviour
             randomX = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound);
             randomY = Random.Range(PathingMap.Instance.y_lower_bound, PathingMap.Instance.y_lower_bound + 2);
             randCell = PathingMap.Instance.tm.WorldToCell(new Vector3(randomX, randomY, 0));
+            curr_rerolls++;
         }
 
         PathingMap.Instance.tm.SetTile(randCell, PathingMap.Instance.pathable_invis_tile);
