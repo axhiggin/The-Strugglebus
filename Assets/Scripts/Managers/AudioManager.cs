@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip gameSceneMusic;
     public AudioClip startScreenMusic;
     public AudioClip gameOverMusic;
+    public float maxVolume = 0.1f;
     private AudioSource audioSource;
 
     private static AudioManager _instance;
@@ -26,6 +27,7 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.volume = maxVolume;
         SceneManager.sceneLoaded += OnSceneLoaded;
         PlayAudioForScene();
     }
