@@ -56,22 +56,60 @@ public class EnemyManager : MonoBehaviour
             Debug.Log("EnemyManager: Spawning spawner.");
         for (int i = 0; i < spawnersPerWave; ++i)
         {
-            float xLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.y_upper_bound));
-            xLoc += 0.5f;
-            float yLoc = Mathf.RoundToInt(Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound));
-            yLoc += 0.5f;
+            // Pick a random tile.
+            float xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
+            float yCoord = Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound) + 0.5f;
 
-            Vector3 spawnLoc = new Vector3(xLoc, yLoc, 0);
-            Vector3Int spawnerCell = PathingMap.Instance.tm.WorldToCell(spawnLoc);
-            PathingMap.Instance.tm.SetTile(spawnerCell, PathingMap.Instance.pathable_invis_tile);
-            GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
-            newSpawner.SetActive(true);
-            newSpawner.transform.SetParent(this.transform);
+            Vector3 randomTilePosition = new Vector3(xCoord, yCoord, 0);
+            Vector3Int tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
 
-            spawnerList.Add(newSpawner);
+            int max_rerolls = 50;
+            int current_reroll = 0;
+            while (true)
+            {
+                // check if tile is empty, if not, reroll.
+                if (isValidSpawnerTile(tilePosInt))
+                    break;
+                if (current_reroll >= max_rerolls)
+                    break;
+                xCoord = Random.Range(PathingMap.Instance.x_lower_bound, PathingMap.Instance.x_upper_bound) + 0.5f;
+                yCoord = Random.Range(PathingMap.Instance.y_upper_bound - 1, PathingMap.Instance.y_upper_bound) + 0.5f;
+                randomTilePosition = new Vector3(xCoord, yCoord, 0);
+                tilePosInt = PathingMap.Instance.tm.WorldToCell(randomTilePosition);
+                current_reroll++;
+            }
+
+            if (isValidSpawnerTile(tilePosInt))
+            {
+
+                Vector3 spawnLoc = new Vector3(xCoord, yCoord, 0);
+                Vector3Int spawnerCell = PathingMap.Instance.tm.WorldToCell(spawnLoc);
+                PathingMap.Instance.tm.SetTile(spawnerCell, PathingMap.Instance.pathable_invis_tile);
+                GameObject newSpawner = Instantiate(spawnerPrefab, spawnLoc, Quaternion.identity);
+                newSpawner.SetActive(true);
+                newSpawner.transform.SetParent(this.transform);
+
+                spawnerList.Add(newSpawner);
+            } else
+            {
+                Debug.Log("Could not find a valid spawner tile. Did not spawn a spawner.");
+            }
+
         }
     }
-
+    private bool isValidSpawnerTile(Vector3Int tilePosInt)
+    {
+        if (PathingMap.Instance.generateFlowField(tilePosInt) == false)
+        {
+            return false;
+        }
+        if (PathingMap.Instance.tm.GetTile(tilePosInt) == null ||
+            PathingMap.Instance.tm.GetTile(tilePosInt).name == "Dungeon_Tileset_v2_78")
+        {
+            return true;
+        }
+        return false;
+    }
     private void despawnSpawners()
     {
 
