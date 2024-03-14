@@ -309,6 +309,9 @@ public class GameManager : MonoBehaviour
 
     private void startBuildPhase()
     {
+        //DESPAWN ENEMIES HERE
+
+
         if (DEBUG_MODE)
             Debug.Log("Starting build phase");
         // Reset time.

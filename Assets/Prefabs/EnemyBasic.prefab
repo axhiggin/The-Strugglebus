@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointList: []
-  speed: 10
-  health: 10
+  speed: 3
+  health: 20
   isAttacking: 0
   material: {fileID: 5196335598326824439, guid: e163161dcc03e244493b5f33fb6d757b, type: 3}
 --- !u!50 &-2789701540913806939

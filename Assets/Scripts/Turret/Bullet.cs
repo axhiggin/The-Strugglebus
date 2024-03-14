@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
         if (Col.gameObject.transform.CompareTag("Enemy"))
         {
             Col.GetComponent<EnemyBasic>().damageEnemy(bulletDamage);
-            // Debug.Log("hit enemy for: " + bulletDamage);
+            Debug.Log("hit enemy for: " + bulletDamage);
             this.gameObject.SetActive(false);
             int explosionType = Random.Range(0, 3);
             GameObject explosion = SpriteFxManager.Instance.GetPooledExplosion(explosionType);

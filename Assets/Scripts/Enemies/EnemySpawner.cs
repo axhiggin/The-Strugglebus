@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Last edited - Norman Zhu 3:32PM 2/21/24 - InstantiatePrefabs() GetObjectFromPool() spawnEnemy()
@@ -65,6 +66,7 @@ public class EnemySpawner : MonoBehaviour
         if (enemyToSpawn != null)
         {
             enemyToSpawn.SetActive(true);
+            enemyToSpawn.GetComponent<EnemyBasic>().health = 10.0f;
             enemyToSpawn.transform.position = this.transform.position;
             enemyToSpawn.GetComponent<EnemyBasic>().waypointList = new List<GameObject>(waypointList);
                                                                     // Make a copy of waypoint list for the enemy.
@@ -85,13 +87,14 @@ public class EnemySpawner : MonoBehaviour
 
         GameManager.StartEnemyPhaseEvent += startSpawning;
         GameManager.EndEnemyPhaseEvent += stopSpawning;
-
+        GameManager.StartBuildPhaseEvent += despawnAllEnemies;
     }
 
     private void OnDestroy()
     {
         GameManager.StartEnemyPhaseEvent -= startSpawning;
         GameManager.EndEnemyPhaseEvent -= stopSpawning;
+        GameManager.StartBuildPhaseEvent -= despawnAllEnemies;
     }
 
     private void startSpawning()
@@ -123,6 +126,14 @@ public class EnemySpawner : MonoBehaviour
                     // Debug.Log("Spawned one enemy. Number of enemies in local pool: " + localEnemyPool.Count);
                 }
             }
+        }
+    }
+
+    public void despawnAllEnemies()
+    {
+        foreach (GameObject obj in localEnemyPool)
+        {
+            obj.SetActive(false);
         }
     }
 }
